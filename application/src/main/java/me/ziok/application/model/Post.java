@@ -19,7 +19,7 @@ public class Post {
 
     //ToDo: ArrayList등 다른 자료구조 고려하기
     @OneToMany
-    private List<Account> passengers = new ArrayList<>();
+    private List<Account> passengers;
 
     private Period period;
 
