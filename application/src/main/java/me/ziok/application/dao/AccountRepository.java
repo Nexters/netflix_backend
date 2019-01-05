@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+
 @Transactional
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     Account findByUserName(String userName);
