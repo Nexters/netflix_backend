@@ -19,7 +19,7 @@ public class Post {
     private String postName;
 
     @JoinColumn(name = "account_id")
-    @ManyToOne
+    @OneToOne
     private Account driver;
 
     //ToDo: ArrayList등 다른 자료구조 고려하기
@@ -36,4 +36,8 @@ public class Post {
     private SimpleDateFormat createdDate;
 
     private SimpleDateFormat updatedDate;
+
+    public Post(String postName) {
+        this.postName = postName;
+    }
 }
