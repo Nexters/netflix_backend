@@ -3,6 +3,7 @@ package me.ziok.application.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class Post {
 
     @Id @GeneratedValue
     private Integer id;
+
+    @NotBlank(message = "Post name is mandatory")
+    private String postName;
 
     @JoinColumn(name = "account_id")
     @ManyToOne
