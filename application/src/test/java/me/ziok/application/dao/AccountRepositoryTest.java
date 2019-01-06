@@ -26,7 +26,7 @@ public class AccountRepositoryTest {
         //given
         Account accountConstructed = new Account();
         accountConstructed.setUserName("accountConstructed");
-        this.entityManager.persist(accountConstructed);
+        this.entityManager.persistAndFlush(accountConstructed);
 
         //when
         Account accountFound = this.accountRepository.findByUserName("accountConstructed");
@@ -35,4 +35,29 @@ public class AccountRepositoryTest {
         assertThat(accountFound.getUserName())
                 .isEqualTo(accountConstructed.getUserName());
     }
+
+    @Test
+    public void whenInvalidName_thenReturnNull() {
+        Account anonymousAccount = accountRepository.findByUserName("invalidName");
+
+        assertThat(anonymousAccount).isNull();
+
+    }
+
+    @Test
+    public void whenFindById_thenReturnAccount() {
+        Account accountConstructed = new Account();
+
+        accountConstructed.setUserName("accountConstructedFindById");
+
+        entityManager.persistAndFlush(accountConstructed);
+
+        Account accountFound = accountRepository.findById(accountConstructed.getId()).orElse(null);
+
+        assertThat(accountFound.getUserName()).isEqualTo(accountConstructed.getUserName());
+
+
+    }
+
+
 }
