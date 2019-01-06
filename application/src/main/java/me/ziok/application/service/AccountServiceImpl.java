@@ -4,7 +4,9 @@ import me.ziok.application.dao.AccountRepository;
 import me.ziok.application.model.Account;
 import me.ziok.application.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
@@ -12,7 +14,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     ValidateService validateService;
-
 
     @Override
     public Account saveAccount(String userName, String phoneNumber, String email, String passWord) {
