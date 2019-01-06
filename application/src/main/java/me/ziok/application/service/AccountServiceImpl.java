@@ -10,35 +10,51 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountRepository accountRepository;
 
+    @Autowired
+    ValidateService validateService;
+
 
     @Override
     public Account saveAccount(String userName, String phoneNumber, String email, String passWord) {
-        Account account = new Account(userName);
+        if (validateService.IsAvailableToCreateAccount(userName)) {
+            Account account = new Account(userName);
 
-        account.setPhoneNumber(phoneNumber);
-        account.setEmail(email);
-        account.setPassWord(passWord);
+            account.setPhoneNumber(phoneNumber);
+            account.setEmail(email);
+            account.setPassWord(passWord);
 
-        accountRepository.save(account);
+            accountRepository.save(account);
 
-        return account;
+            return account;
+        }
+        return null;
     }
 
     @Override
     public Account deleteAccount(String userName) {
-        Account account = accountRepository.findByUserName(userName);
-        accountRepository.delete(account);
-        return account;
+        if (validateService.IsAvailableToDeleteAccount(userName)) {
+            Account account = accountRepository.findByUserName(userName);
+            accountRepository.delete(account);
+            return account;
+        }
+
+        return null;
     }
 
     @Override
     public Account updateAccount(Account account) {
 
-        Account accountFound = accountRepository.findByUserName(account.getUserName());
+        if (validateService.IsAccountExists(account.getUserName())) {
 
-        accountRepository.delete(accountFound);
-        accountRepository.save(account);
+            Account accountFound = accountRepository.findByUserName(account.getUserName());
 
-        return account;
+            accountRepository.delete(accountFound);
+            accountRepository.save(account);
+
+            return account;
+
+        }
+
+        return null;
     }
 }
