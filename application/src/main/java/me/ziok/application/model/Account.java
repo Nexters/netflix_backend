@@ -15,7 +15,7 @@ import java.util.List;
 public class Account {
 
     @Id @GeneratedValue
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Name is mandatory")
     private String userName;

@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 public class Comment {
 
     @Id @GeneratedValue
-    private Integer id;
+    private Long id;
 
     //ToDo: String 형식이 괜찮을 지
     private String contents;

@@ -13,7 +13,7 @@ import java.util.List;
 public class Post {
 
     @Id @GeneratedValue
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Post name is mandatory")
     private String postName;
