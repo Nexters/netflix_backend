@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ import java.util.List;
 public class Post {
 
     @Id @GeneratedValue
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Post name is mandatory")
     private String postName;
@@ -30,4 +31,8 @@ public class Post {
 
     @OneToMany
     private List<Comment> comments;
+
+    private SimpleDateFormat createdDate;
+
+    private SimpleDateFormat updatedDate;
 }
