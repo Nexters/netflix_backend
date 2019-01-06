@@ -21,7 +21,7 @@ public class AccountRepositoryTest {
     TestEntityManager entityManager;
 
     @Test
-    public void jpaPersistenceTest() {
+    public void whenFindByNameThenReturnAccount() {
 
         //given
         Account accountConstructed = new Account();
