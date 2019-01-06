@@ -26,7 +26,7 @@ public class Post {
     @OneToMany
     private List<Account> passengers;
 
-    private Period period;
+    private int period;
 
     private boolean isOpen;
 

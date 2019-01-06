@@ -1,6 +1,8 @@
 package me.ziok.application.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +14,14 @@ import java.util.List;
 
 @Entity
 @Data
+@RequiredArgsConstructor
 public class Account {
 
     @Id @GeneratedValue
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
+    @NotNull
     private String userName;
 
     private String phoneNumber;
