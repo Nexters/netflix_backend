@@ -8,6 +8,6 @@ import javax.transaction.Transactional;
 
 
 @Transactional
-public interface AccountRepository extends JpaRepository<Account, Integer> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
     Account findByUserName(String userName);
 }
