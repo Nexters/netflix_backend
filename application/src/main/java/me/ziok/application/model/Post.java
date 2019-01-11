@@ -1,43 +1,57 @@
 package me.ziok.application.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Table(name="post")
 public class Post {
 
-    @Id @GeneratedValue
-    private Long id;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private int id;
 
-    @NotBlank(message = "Post name is mandatory")
+    @NotBlank
+    @Column(name="post_name")
     private String postName;
 
-    @JoinColumn(name = "account_id")
-    @OneToOne
-    private Account driver;
+    @NotBlank
+    @Column
+    private String content;
 
-    //ToDo: ArrayList등 다른 자료구조 고려하기
-    @OneToMany
-    private List<Account> passengers;
+    @Column
+    private int period; //모집 기간
 
-    private int period;
+    @Column
+    private int number; //모집 인원 수
 
+    @Column
+    private int fee; //요금
+
+    @Column(name="create_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    @Column(name="is_open_flag")
     private boolean isOpen;
 
-    @OneToMany
-    private List<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name="account_id_fk")
+    private Account account;
 
-    private SimpleDateFormat createdDate;
-
-    private SimpleDateFormat updatedDate;
-
+   /*
     public Post(String postName) {
         this.postName = postName;
     }
+    */
 }
