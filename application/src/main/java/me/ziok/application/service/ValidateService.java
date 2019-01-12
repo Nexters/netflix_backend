@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 public interface ValidateService {
 
-    boolean IsAvailableToCreateAccount(String userName);
+    boolean isAvailableToCreateAccount(String userName);
 
-    boolean IsAvailableToDeleteAccount(String userName);
+    boolean isAvailableToDeleteAccount(String userName);
 
-    boolean IsAccountExists(String userName);
+    boolean isAccountExists(String userName);
 }

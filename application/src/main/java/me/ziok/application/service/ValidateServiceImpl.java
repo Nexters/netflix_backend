@@ -5,17 +5,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ValidateServiceImpl implements ValidateService {
     @Override
-    public boolean IsAvailableToCreateAccount(String userName) {
+    public boolean isAvailableToCreateAccount(String userName) {
         return false;
     }
 
     @Override
-    public boolean IsAvailableToDeleteAccount(String userName) {
+    public boolean isAvailableToDeleteAccount(String userName) {
         return false;
     }
 
     @Override
-    public boolean IsAccountExists(String userName) {
+    public boolean isAccountExists(String userName) {
         return false;
     }
 }
