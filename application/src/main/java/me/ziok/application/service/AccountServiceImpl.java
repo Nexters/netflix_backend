@@ -22,7 +22,7 @@ public class AccountServiceImpl implements AccountService {
 
             account.setPhoneNumber(phoneNumber);
             account.setEmail(email);
-            account.setPassWord(passWord);
+            account.setPassword(passWord);
 
             accountRepository.save(account);
 
@@ -45,9 +45,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account updateAccount(Account account) {
 
-        if (validateService.IsAccountExists(account.getUserName())) {
+        if (validateService.IsAccountExists(account.getUserId())) {
 
-            Account accountFound = accountRepository.findByUserName(account.getUserName());
+            Account accountFound = accountRepository.findByUserName(account.getUserId());
 
             accountRepository.delete(accountFound);
             accountRepository.save(account);
