@@ -1,5 +1,6 @@
-package me.ziok.application.dao;
+package me.ziok.application.model;
 
+import me.ziok.application.dao.AccountRepository;
 import me.ziok.application.model.Account;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class AccountRepositoryTest {
+public class AccountTest {
 
     @Autowired
     AccountRepository accountRepository;

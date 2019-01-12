@@ -1,5 +1,7 @@
-package me.ziok.application.dao;
+package me.ziok.application.model;
 
+import me.ziok.application.dao.AccountRepository;
+import me.ziok.application.dao.PostRepository;
 import me.ziok.application.model.Account;
 import me.ziok.application.model.Post;
 import org.junit.Test;
@@ -22,7 +24,7 @@ import static junit.framework.TestCase.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class PostRepositoryTest {
+public class PostTest {
 
     @Autowired
     PostRepository postRepository;

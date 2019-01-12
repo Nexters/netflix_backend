@@ -10,5 +10,4 @@ import javax.transaction.Transactional;
 @Transactional
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-    public Account findByUserId(String userId);
 }

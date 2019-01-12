@@ -1,5 +1,8 @@
-package me.ziok.application.dao;
+package me.ziok.application.model;
 
+import me.ziok.application.dao.AccountRepository;
+import me.ziok.application.dao.CommentRepository;
+import me.ziok.application.dao.PostRepository;
 import me.ziok.application.model.Account;
 import me.ziok.application.model.Comment;
 import me.ziok.application.model.Post;
@@ -19,7 +22,7 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class CommentRepositoryTest {
+public class CommentTest {
 
     @Autowired
     CommentRepository commentRepository;
