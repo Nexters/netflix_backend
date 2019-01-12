@@ -1,12 +1,13 @@
 package me.ziok.application.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @Table(name="post")
 public class Post {
 
@@ -38,9 +41,9 @@ public class Post {
     @Column
     private int fee; //요금
 
-    @Column(name="create_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    @Column(name="create_date", updatable=false)
+    @CreationTimestamp
+    private LocalDateTime createDate;
 
     @Column(name="is_open_flag")
     private boolean isOpen;

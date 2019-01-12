@@ -10,6 +10,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString
 @Table(name = "account")
 public class Account {
 

@@ -1,17 +1,19 @@
 package me.ziok.application.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @Table(name="comment")
 public class Comment {
 
@@ -26,9 +28,9 @@ public class Comment {
     @Column
     private String content;
 
-    @Column(name="create_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    @Column(name="create_date", updatable=false)
+    @CreationTimestamp
+    private LocalDateTime createDate;
 
     @ManyToOne
     @JoinColumn(name="account_id_fk")
