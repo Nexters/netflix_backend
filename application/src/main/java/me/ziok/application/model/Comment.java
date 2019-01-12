@@ -17,7 +17,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name="rewrite_comment_id")
     private int rewriteCommentId; //답글에 대한 정보를 나타내는 변수
