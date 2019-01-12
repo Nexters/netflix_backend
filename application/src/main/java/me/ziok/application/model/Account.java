@@ -36,10 +36,4 @@ public class Account {
     @NotBlank
     @Column
     private String email;
-
-    /*
-    public Account(String userName) {
-        this.userName = userName;
-    }
-    */
 }
