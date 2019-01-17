@@ -1,8 +1,8 @@
 package me.ziok.application.security.oauth2.AccountDto;
 
 import me.ziok.application.exceptions.OAuth2AuthenticationProcessingException;
-import me.ziok.application.model.AuthProviderType;
 
+import me.ziok.application.model.AuthProviderType;
 import java.util.Map;
 
 public class OAuth2AccountInfoFactory {

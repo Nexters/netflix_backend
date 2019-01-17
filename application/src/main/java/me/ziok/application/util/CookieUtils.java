@@ -38,7 +38,6 @@ public class CookieUtils {
         response.addCookie(cookie);
 
         return true;
-
     }
 
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
