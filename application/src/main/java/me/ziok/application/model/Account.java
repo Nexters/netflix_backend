@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Getter
@@ -18,8 +17,8 @@ public class Account {
     private int id;
 
     @NotBlank
-    @Column(name="user_id")
-    private String userId; //아이디
+    @Column(name="account_id", nullable = false, unique = true)
+    private String accountId; //아이디
 
     @NotBlank
     @Column
@@ -37,9 +36,15 @@ public class Account {
     @Column
     private String email;
 
-    /*
-    public Account(String userName) {
-        this.userName = userName;
-    }
-    */
+    @Column(nullable = false)
+    private Boolean isEmailVerified = false;
+
+    private String imageUrl;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProviderType provider;
+
+    private String providerId;
+
 }
