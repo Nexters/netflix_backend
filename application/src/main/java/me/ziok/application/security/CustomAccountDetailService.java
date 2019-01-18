@@ -1,4 +1,6 @@
 package me.ziok.application.security;
 
-public class CustomAccountDetailService {
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface CustomAccountDetailService extends UserDetailsService {
 }
