@@ -6,7 +6,6 @@ import net.minidev.json.annotate.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Getter
@@ -22,7 +21,7 @@ public class Account {
 
     //todo: 소셜 로그인과 연동을 하니, 회원가입을 해서 만드는 아이디도 이메일로 하는 게 어떤지 논의하기
     @NotBlank
-    @Column(name="account_id", nullable = false)
+    @Column(name="account_id", nullable = false, unique = true)
     private String accountId; //아이디
 
     @NotBlank
@@ -49,9 +48,7 @@ public class Account {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private AuthProvider provider;
+    private AuthProviderType provider;
 
     private String providerId;
-
-
 }

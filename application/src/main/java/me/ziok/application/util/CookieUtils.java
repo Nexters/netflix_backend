@@ -25,12 +25,19 @@ public class CookieUtils {
         return Optional.empty();
     }
 
-    public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
+    public static boolean addCookie(HttpServletResponse response, String name, String value, int maxAge) {
+
+        if (name == null || value == null) {
+            return false;
+        }
+
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
         response.addCookie(cookie);
+
+        return true;
     }
 
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {

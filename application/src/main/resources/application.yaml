@@ -29,10 +29,9 @@ spring:
               - public_profile
         provider:
           facebook:
-            authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
-            tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
-            userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
-
+            authorizationUri: https://www.FACEBOOK.com/v3.0/dialog/oauth
+            tokenUri: https://graph.FACEBOOK.com/v3.0/oauth/access_token
+            userInfoUri: https://graph.FACEBOOK.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
 
 # 이게 왜 인식이 안되는지...?
 app:
