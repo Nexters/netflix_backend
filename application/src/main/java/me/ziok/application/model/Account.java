@@ -4,6 +4,7 @@ import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -19,10 +20,10 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //todo: 소셜 로그인과 연동을 하니, 회원가입을 해서 만드는 아이디도 이메일로 하는 게 어떤지 논의하기
     @NotBlank
     @Column(name="account_id", nullable = false, unique = true)
-    private String accountId; //아이디
+    @Email
+    private String accountId; //아이디(이메일형식)
 
     @NotBlank
     @JsonIgnore
@@ -32,14 +33,6 @@ public class Account {
     @NotBlank
     @Column(name="nick_name", nullable = false)
     private String nickName; //닉네임
-
-    @NotBlank
-    @Column(name="phone_number")
-    private String phoneNumber;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String email;
 
     @Column(nullable = false)
     private Boolean isEmailVerified = false;
