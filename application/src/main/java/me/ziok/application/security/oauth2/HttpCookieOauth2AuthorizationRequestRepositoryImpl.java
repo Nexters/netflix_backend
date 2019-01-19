@@ -18,9 +18,6 @@ public class HttpCookieOauth2AuthorizationRequestRepositoryImpl implements HttpC
 
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest httpServletRequest) {
-
-        System.out.println("loadAuthroizationRequest");
-        System.out.println(CookieUtils.getCookie(httpServletRequest, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME));
         return CookieUtils.getCookie(httpServletRequest, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
                 .map(cookie -> CookieUtils.deserialize(cookie,OAuth2AuthorizationRequest.class))
                 .orElse(null);

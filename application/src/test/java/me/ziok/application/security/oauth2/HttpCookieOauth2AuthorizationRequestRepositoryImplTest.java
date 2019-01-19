@@ -1,26 +1,34 @@
 package me.ziok.application.security.oauth2;
 
+import me.ziok.application.util.CookieUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class HttpCookieOauth2AuthorizationRequestRepositoryImplTest {
 
+    @Mock
+    HttpServletRequest request;
+
+    @Mock
+    HttpServletResponse response;
+
     private HttpCookieOauth2AuthorizationRequestRepository authorizationRequestRepository =
             new HttpCookieOauth2AuthorizationRequestRepositoryImpl();
 
-//    @Test(expected = IllegalArgumentException.class)
-//    public void loadAuthorizationRequestWhenHttpServletRequestIsNullThenThrowIllegalArgumentException() {
-//        this.authorizationRequestRepository.loadAuthorizationRequest(null);
-//    }
 
     @Test
     public void loadAuthorizationRequestWhenNotSavedThenReturnNull() {
@@ -37,18 +45,22 @@ public class HttpCookieOauth2AuthorizationRequestRepositoryImplTest {
 
     @Test
     public void loadAuthorizationRequestWhenSavedThenReturnAuthorizationRequest() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        MockHttpServletResponse response = new MockHttpServletResponse();
 
+        //given
         OAuth2AuthorizationRequest authorizationRequest = createAuthorizationRequest().build();
+        Cookie[] cookies = {new Cookie("oauth2_auth_request", CookieUtils.serialize(authorizationRequest))};
+        when(request.getCookies()).thenReturn(cookies);
+        // request.addParameter(OAuth2ParameterNames.STATE, authorizationRequest.getState());
 
+        //when
         this.authorizationRequestRepository.saveAuthorizationRequest(authorizationRequest,request,response);
-
-        request.addParameter(OAuth2ParameterNames.STATE, authorizationRequest.getState());
         OAuth2AuthorizationRequest loadedAuthorizationRequest =
                 this.authorizationRequestRepository.loadAuthorizationRequest(request);
 
-        assertThat(loadedAuthorizationRequest).isEqualTo(authorizationRequest);
+        //then
+        assertThat(loadedAuthorizationRequest.getClientId()).isEqualTo(authorizationRequest.getClientId());
     }
 
     @Test
