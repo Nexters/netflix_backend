@@ -3,6 +3,7 @@ package me.ziok.application.security.oauth2;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import me.ziok.application.util.CookieUtils;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,9 @@ public class HttpCookieOauth2AuthorizationRequestRepositoryImpl implements HttpC
 
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest httpServletRequest) {
+
+        System.out.println("loadAuthroizationRequest");
+        System.out.println(CookieUtils.getCookie(httpServletRequest, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME));
         return CookieUtils.getCookie(httpServletRequest, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
                 .map(cookie -> CookieUtils.deserialize(cookie,OAuth2AuthorizationRequest.class))
                 .orElse(null);
