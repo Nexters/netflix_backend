@@ -19,8 +19,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="rewrite_comment_id")
-    private int rewriteCommentId; //답글에 대한 정보를 나타내는 변수
+    @Column(name="comment_group_id")
+    private int commentGroupId; //답글에 대한 정보를 나타내는 변수
 
     @NotBlank
     @Column
@@ -29,6 +29,9 @@ public class Comment {
     @Column(name="create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+
+    @Column(name="is_secret")
+    private boolean isSecret;
 
     @ManyToOne
     @JoinColumn(name="account_id_fk")
