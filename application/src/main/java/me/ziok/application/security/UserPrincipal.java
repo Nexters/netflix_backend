@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class AccountPrincipal implements OAuth2User, UserDetails {
+public class UserPrincipal implements OAuth2User, UserDetails {
 
 
     @NonNull
@@ -34,11 +34,11 @@ public class AccountPrincipal implements OAuth2User, UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    public static AccountPrincipal create(Account account) {
+    public static UserPrincipal create(Account account) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new AccountPrincipal(
+        return new UserPrincipal(
                 account.getId(),
                 account.getAccountId(),
                 account.getPassword(),
@@ -46,8 +46,8 @@ public class AccountPrincipal implements OAuth2User, UserDetails {
         );
     }
 
-    public static AccountPrincipal create(Account account, Map<String, Object> attributes) {
-        AccountPrincipal userPrincipal = AccountPrincipal.create(account);
+    public static UserPrincipal create(Account account, Map<String, Object> attributes) {
+        UserPrincipal userPrincipal = UserPrincipal.create(account);
         userPrincipal.setAttributes(attributes);
         return userPrincipal;
     }
