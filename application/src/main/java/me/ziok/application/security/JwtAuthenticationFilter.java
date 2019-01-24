@@ -3,6 +3,7 @@ package me.ziok.application.security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,12 +21,11 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    //todo: Qualifier넣기
+    @Qualifier("jwtTokenProvider")
     private TokenProvider tokenProvider;
 
     @Autowired
-    //todo UserDetailService 인터페이스로 바꾸기
-    private UserDetailsServiceImpl userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 

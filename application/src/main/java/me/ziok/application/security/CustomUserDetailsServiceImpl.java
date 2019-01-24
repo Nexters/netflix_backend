@@ -4,6 +4,7 @@ import me.ziok.application.dao.AccountRepository;
 import me.ziok.application.model.Account;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Qualifier("userDetailsServiceImpl")
+public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
     @Autowired
     AccountRepository accountRepository;
