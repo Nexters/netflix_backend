@@ -12,7 +12,7 @@ public class AuthResponse {
 
     @NonNull
     private String accessToken;
-    //todo: "bearer" 가 무슨 뜻이지
+    //todo: "Bearer" 가 별 뜻 없으면 딴걸로 바꾸기
     private String tokenType = "Bearer";
 
 }

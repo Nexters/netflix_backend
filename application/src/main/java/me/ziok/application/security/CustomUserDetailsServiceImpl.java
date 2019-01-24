@@ -2,15 +2,11 @@ package me.ziok.application.security;
 
 import me.ziok.application.dao.AccountRepository;
 import me.ziok.application.model.Account;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Qualifier("userDetailsServiceImpl")
@@ -25,7 +21,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     }
 
     public UserDetails loadUserByAccountId(String accountId) throws UsernameNotFoundException {
-        Account account = accountRepository.findByEmail(accountId).orElseThrow(() -> new UsernameNotFoundException("User not found with this email : " + accountId));
+        Account account = accountRepository.findByAccountId(accountId).orElseThrow(() -> new UsernameNotFoundException("User not found with this email : " + accountId));
         return UserPrincipal.create(account);
     }
 

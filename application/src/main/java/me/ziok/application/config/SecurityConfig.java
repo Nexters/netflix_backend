@@ -1,5 +1,6 @@
 package me.ziok.application.config;
 
+import me.ziok.application.security.CustomUserDetailsService;
 import me.ziok.application.security.JwtAuthenticationFilter;
 import me.ziok.application.security.CustomUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-            //todo: 인터페이스로 오토와이어
-            CustomUserDetailsServiceImpl userDetailsService;
+    CustomUserDetailsService userDetailsService;
 
     @Autowired
     @Qualifier("jwtAuthenticationEntryPoint")
