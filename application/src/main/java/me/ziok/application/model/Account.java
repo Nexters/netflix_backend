@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Table(name = "account", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
+        @UniqueConstraint(columnNames = "account_id")
 })
 public class Account {
 
@@ -34,14 +34,15 @@ public class Account {
     @Column(name="nick_name", nullable = false)
     private String nickName; //닉네임
 
-    @Column(nullable = false)
-    private Boolean isEmailVerified = false;
+  //  @Column(nullable = false)
+ //   private Boolean isEmailVerified = false;
 
-    private String imageUrl;
-
+   // private String imageUrl;
+/*
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthProviderType provider;
 
     private String providerId;
+*/
 }

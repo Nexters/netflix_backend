@@ -38,20 +38,22 @@ public class Post {
     @Column
     private int fee; //요금
 
-    @Column(name="create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    private String membership; //요금제
+
+    @Column(name="create_date", updatable = false)
+   // @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
     @Column(name="is_open_flag")
     private boolean isOpen;
 
     @ManyToOne
-    @JoinColumn(name="account_id_fk")
+    @JoinColumn(name="account_id_fk",  updatable = false)
     private Account account;
 
-   /*
-    public Post(String postName) {
-        this.postName = postName;
-    }
-    */
+    @OneToMany
+    @JoinColumn(name="post_id_fk", updatable = false)
+    private List<Comment> comment;
+
 }
