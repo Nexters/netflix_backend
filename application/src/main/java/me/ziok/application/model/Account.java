@@ -26,7 +26,7 @@ public class Account {
     @NonNull
     @Column(name="email", nullable = false, unique = true)
     @Email
-    private String accountId; //아이디(이메일형식)
+    private String email; //아이디(이메일형식)
 
     @NotBlank
     @JsonIgnore

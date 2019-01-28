@@ -43,7 +43,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
         return new UserPrincipal(
                 account.getId(),
-                account.getAccountId(),
+                account.getEmail(),
                 account.getPassword(),
                 authorities
         );

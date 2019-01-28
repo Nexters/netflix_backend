@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -18,8 +16,8 @@ public class AccountServiceImpl implements AccountService {
     PasswordEncoder passwordEncoder;
 
     @Override
-    public Account loadAccountByAccountId(String accountId) {
-        return accountRepository.findByAccountId(accountId).orElse(null);
+    public Account loadAccountByEmail(String email) {
+        return accountRepository.findByEmail(email).orElse(null);
     }
 
     @Override
@@ -33,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteAccount(String accountId) {
-        Account account = accountRepository.findByAccountId(accountId).orElse(null);
+        Account account = accountRepository.findByEmail(accountId).orElse(null);
         //todo: 조회 안됐을 시 처리
         if (account == null) {
 
