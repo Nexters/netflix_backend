@@ -15,8 +15,8 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Account getAccountById(@PathVariable String id) {
-        return accountService.loadAccountByEmail(id);
+    @RequestMapping(value = "/{email}",method = RequestMethod.GET)
+    public Account getAccountByEmail(@PathVariable String email) {
+        return accountService.loadAccountByEmail(email);
     }
 }

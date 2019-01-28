@@ -43,7 +43,7 @@ public class Account {
 
 
     @Enumerated(EnumType.STRING)
-    private AuthProviderType provider;
+    private AuthProviderType providerType;
 
     private String providerId;
 }
