@@ -44,12 +44,6 @@ public class AuthController {
     public ResponseEntity<?> authenticateAccount(@Valid @RequestBody LoginRequest loginRequest) {
 
         //todo: 인자를 이메일, 패스워드 두개 받는 함수를 만들고, 그 안에서 authenticate 호출하기.
-
-        System.out.println("authenticateAccount is running");
-        System.out.println("getEmail");
-        System.out.println(loginRequest.getEmail());
-
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
@@ -57,14 +51,10 @@ public class AuthController {
                 )
         );
 
-        System.out.println("authentication");
-        System.out.println(authentication);
-
-
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
+
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
@@ -76,7 +66,6 @@ public class AuthController {
         }
 
         Account account = accountService.saveAccount(signUpRequest.getEmail(), signUpRequest.getPassword());
-
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/api/users/{username}")

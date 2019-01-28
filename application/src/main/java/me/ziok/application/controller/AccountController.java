@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("accounts")
-@PreAuthorize("isAnonymous()")
 public class AccountController {
     @Autowired
     AccountService accountService;
 
-    @PreAuthorize("isAnonymous()")
     @RequestMapping(value = "/{accountId}",method = RequestMethod.GET)
     public Account getAccount(@PathVariable String accountId) {
-        System.out.println("getAccount is running");
         return accountService.loadAccountByAccountId(accountId);
     }
 }

@@ -3,6 +3,7 @@ package me.ziok.application.service;
 import me.ziok.application.dao.AccountRepository;
 import me.ziok.application.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,6 +14,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountRepository accountRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public Account loadAccountByAccountId(String accountId) {
         return accountRepository.findByAccountId(accountId).orElse(null);
@@ -20,7 +24,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account saveAccount(String accountId, String password) {
-        Account account = new Account(accountId, password);
+        Account account = new Account(accountId);
+
+        account.setPassword(passwordEncoder.encode(password));
+
         return accountRepository.save(account);
     }
 
