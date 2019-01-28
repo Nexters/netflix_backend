@@ -5,15 +5,13 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.ziok.application.model.Account;
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Getter
@@ -24,21 +22,24 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     @NonNull
     private Long id;
 
+    private String name;
+
     @NonNull
     private String email;
 
     @NonNull
+    @JsonIgnore
     private String password;
 
     @NonNull
     private Collection<? extends GrantedAuthority> authorities;
+
     private Map<String, Object> attributes;
 
     public static UserPrincipal create(Account account) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
-        System.out.println("is it running? user principal");
 
         return new UserPrincipal(
                 account.getId(),
@@ -82,12 +83,21 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        UserPrincipal that = (UserPrincipal) obj;
+        return Objects.equals(id, that.id);
     }
 
     @Override
-    public String getName() {
-        return null;
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
     }
 }
