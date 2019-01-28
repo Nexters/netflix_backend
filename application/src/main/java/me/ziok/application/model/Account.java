@@ -28,6 +28,7 @@ public class Account {
     @Email
     private String email; //아이디(이메일형식)
 
+    @NonNull
     @NotBlank
     @JsonIgnore
     @Column

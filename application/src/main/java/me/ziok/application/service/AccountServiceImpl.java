@@ -1,6 +1,7 @@
 package me.ziok.application.service;
 
 import me.ziok.application.dao.AccountRepository;
+import me.ziok.application.exceptions.ResourceNotFoundException;
 import me.ziok.application.model.Account;
 import me.ziok.application.model.AuthProviderType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,38 +27,19 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findByEmail(email).orElse(null);
     }
 
+
     @Override
-    public Account saveAccount(String email, String password) {
+    public Account saveAccount(Account account) {
 
-        if (accountRepository.existsByEmail(email)) {
-            return null;
-        }
-
-        Account account = new Account(email);
-
-        account.setPassword(passwordEncoder.encode(password));
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
 
         return accountRepository.save(account);
-    }
-
-    public Account saveAccount(String email, String password, String nickName, Boolean isEmailVerified, String imageUrl, AuthProviderType providerType, String providerId) {
-
-        Account account = new Account(email);
-
-        account.setPassword(passwordEncoder.encode(password));
-        account.setNickName(nickName);
-        account.setIsEmailVerified(isEmailVerified);
-        account.setImageUrl(imageUrl);
-        account.setProviderType(providerType);
-        account.setProviderId(providerId);
-
-        return account;
 
     }
 
     @Override
-    public Account deleteAccount(String email) {
-        Account account = accountRepository.findByEmail(email).orElse(null);
+    public Account deleteAccount(Long id) {
+        Account account = accountRepository.findById(id).orElse(null);
 
         if (account == null) {
             return  null;
@@ -70,7 +52,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account updateAccount(Account account) {
 
-        //todo: account의 필드값을 받아서, 수정하는 걸로 바꿀수도 있음.
+        accountRepository.findById(account.getId()).orElseThrow(() -> new ResourceNotFoundException("Account", "id", account.getId()));
+
         return accountRepository.save(account);
     }
 

@@ -1,5 +1,6 @@
 package me.ziok.application.controller;
 
+import me.ziok.application.infra.RequestToAccount;
 import me.ziok.application.model.Account;
 import me.ziok.application.payload.ApiResponse;
 import me.ziok.application.payload.JwtAuthenticationResponse;
@@ -65,7 +66,9 @@ public class AuthController {
 
         }
 
-        Account account = accountService.saveAccount(signUpRequest.getEmail(), signUpRequest.getPassword());
+        Account requestedAccount = RequestToAccount.toAccount(signUpRequest);
+
+        Account account = accountService.saveAccount(requestedAccount);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/api/users/{username}")
