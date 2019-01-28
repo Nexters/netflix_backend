@@ -14,6 +14,11 @@ public class AccountServiceImpl implements AccountService {
     AccountRepository accountRepository;
 
     @Override
+    public Account loadAccountByAccountId(String accountId) {
+        return accountRepository.findByAccountId(accountId).orElse(null);
+    }
+
+    @Override
     public Account saveAccount(String accountId, String password) {
         Account account = new Account(accountId, password);
         return accountRepository.save(account);

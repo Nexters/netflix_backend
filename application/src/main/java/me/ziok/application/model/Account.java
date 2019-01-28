@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "account", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
+@NoArgsConstructor
 public class Account {
 
     @Id
@@ -34,8 +35,7 @@ public class Account {
     @NonNull
     private String password;
 
-    @NotBlank
-    @Column(name="nick_name", nullable = false)
+    @Column(name="nick_name")
     private String nickName; //닉네임
 
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class Account {
 
     private String imageUrl;
 
-    @NotNull
+
     @Enumerated(EnumType.STRING)
     private AuthProviderType provider;
 
