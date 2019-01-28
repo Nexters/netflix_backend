@@ -38,6 +38,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
+        System.out.println("is it running? user principal");
+
         return new UserPrincipal(
                 account.getId(),
                 account.getAccountId(),
@@ -61,22 +63,22 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override

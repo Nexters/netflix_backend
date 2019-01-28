@@ -9,15 +9,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("userDetailsServiceImpl")
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
     @Autowired
     AccountRepository accountRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
+        Account account = accountRepository.findByAccountId(accountId).orElseThrow(() -> new UsernameNotFoundException("User not found with this email : " + accountId));
+        return UserPrincipal.create(account);
     }
 
     public UserDetails loadUserByAccountId(String accountId) throws UsernameNotFoundException {
@@ -29,4 +29,6 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
         Account account = accountRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found with this id : " + id));
         return UserPrincipal.create(account);
     }
+
+
 }

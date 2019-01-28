@@ -2,7 +2,6 @@ package me.ziok.application.config;
 
 import me.ziok.application.security.CustomUserDetailsService;
 import me.ziok.application.security.JwtAuthenticationFilter;
-import me.ziok.application.security.CustomUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
