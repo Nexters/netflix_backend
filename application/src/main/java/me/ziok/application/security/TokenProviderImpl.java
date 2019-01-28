@@ -4,7 +4,7 @@ import org.springframework.security.core.Authentication;
 
 public class TokenProviderImpl implements TokenProvider {
     @Override
-    public String createToken(Authentication authentication) {
+    public String generateToken(Authentication authentication) {
         return null;
     }
 
