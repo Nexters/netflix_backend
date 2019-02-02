@@ -1,12 +1,19 @@
 package me.ziok.application.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +21,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name="post")
 public class Post {
 
@@ -33,7 +41,7 @@ public class Post {
     private int period; //모집 기간
 
     @Column
-    private int number; //모집 인원 수
+    private long number; //모집 인원 수
 
     @Column
     private int fee; //요금
@@ -41,12 +49,15 @@ public class Post {
     @Column
     private String membership; //요금제
 
+    @CreationTimestamp
     @Column(name="create_date", updatable = false)
-   // @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private LocalDateTime createDate;
 
     @Column(name="is_open_flag")
     private boolean isOpen;
+
+    @Column
+    private long hits;
 
     @ManyToOne
     @JoinColumn(name="account_id_fk",  updatable = false)
