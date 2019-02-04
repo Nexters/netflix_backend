@@ -1,5 +1,6 @@
 package me.ziok.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -21,7 +22,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "comment")
 @Table(name="post")
 public class Post {
 
@@ -54,7 +55,7 @@ public class Post {
     private LocalDateTime createDate;
 
     @Column(name="is_open_flag")
-    private boolean isOpen;
+    private boolean open;
 
     @Column
     private long hits;

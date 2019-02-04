@@ -10,7 +10,7 @@ public interface PostService {
 
     public void savePost(Post post);
 
-    public Post getPost(int id);
+    public Post getPost(int id, long accountId);
 
     public List<Post> getPostList();
 
@@ -24,4 +24,3 @@ public interface PostService {
 
     public void deletePost(Post post);
 }
-
