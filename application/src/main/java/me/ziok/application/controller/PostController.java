@@ -24,16 +24,22 @@ public class PostController {
     @Autowired
     PostService postService;
 
-    //post 생성, 수정
+    //post 생성
     @RequestMapping(method= RequestMethod.POST)
-    public void savePost(@RequestBody Post post){
-        postService.savePost(post);
+    public Post savePost(@RequestBody Post post){
+        return postService.savePost(post);
     }
 
-    //post 상세보기
+    //post 수정
+    @RequestMapping(method= RequestMethod.PUT)
+    public Post updatePost(@RequestBody Post post){
+        return postService.savePost(post);
+    }
+
+    //post 상세보기 - account정보
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public Post getPost(@PathVariable int id, long accountId){
-        return postService.getPost(id, accountId);
+    public Post getPost(@PathVariable int id, String email){
+        return postService.getPost(id, email);
     }
 
     //postList - 게시판 첫 요청 시
@@ -42,10 +48,11 @@ public class PostController {
         return postService.findTop5ByOrderByIdDesc();
     }
 
+    //0최신순 1남은인원수 2저가순
     //postList - 마지막 글 번호를 파라미터로 받고 그 다음 글 5개 리턴
-    @RequestMapping(method=RequestMethod.GET, value="list/{id}")
-    public List<Post> getPostList(@PathVariable int id) {
-        return postService.findPostByLimit(id);
+    @RequestMapping(method=RequestMethod.GET, value="list/{lastPostId}")
+    public List<Post> getPostList(@PathVariable int lastPostId, @RequestParam(defaultValue = "0") int sortId) {
+        return postService.findPostByLimit(lastPostId,sortId);
     }
 
     //postList - 첫 필터링 후 조회 시 조건에 해당하는 글 리턴
@@ -55,9 +62,9 @@ public class PostController {
     }
 
     //postList - 마지막 글 번호를 파라미터로 받고 조건에 해당하는 그 다음 글 5개 리턴
-    @RequestMapping(method=RequestMethod.GET, value="list/conditions/{id}")
-    public List<Post> getPostListByConditions(@PathVariable int id, int number, int periodStart, int periodEnd) {
-        return postService.findPostByConditions(id ,number, periodStart, periodEnd);
+    @RequestMapping(method=RequestMethod.GET, value="list/conditions/{lastPostId}")
+    public List<Post> getPostListByConditions(@PathVariable int lastPostId, int number, int periodStart, int periodEnd,  @RequestParam(defaultValue = "0") int sortId) {
+        return postService.findPostByConditions(lastPostId ,number, periodStart, periodEnd, sortId);
     }
 
     //post 삭제
