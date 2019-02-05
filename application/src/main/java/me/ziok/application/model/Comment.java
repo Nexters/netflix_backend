@@ -16,7 +16,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude="post")
 @Table(name="comment")
 public class Comment {
 

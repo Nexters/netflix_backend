@@ -17,15 +17,15 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     public List<Comment> findByPostIdOrderByParentCommentIdAscIdAsc(long postId);
 
     //내가 쓴 댓글(최신순) 조회
-    public List<Comment> findByAccountIdOrderByIdDesc(long accountId);
+    public List<Comment> findByAccountEmailOrderByIdDesc(String email);
 
     //내가 쓴 댓글 개수
-    public Long countByAccountId(long accountId);
+    public Long countByAccountEmail(String email);
 
     //게시글 삭제 시 전에 댓글 먼저 모두 삭제
     public void deleteByPostId(long postId);
 
     //한 사용자가 작성한 댓글 모두 삭제
-    public void deleteByAccountId(long accountId);
+    public void deleteByAccountEmail(String email);
 
 }
