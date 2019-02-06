@@ -5,6 +5,7 @@ import me.ziok.application.dao.PostRepository;
 import me.ziok.application.model.Account;
 import me.ziok.application.model.Comment;
 import me.ziok.application.model.Post;
+import me.ziok.application.model.PostSortType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +31,9 @@ public class PostServiceImpl implements PostService{
         return postRepository.save(post);
     }
 
-    public Post getPost(int id, String email){
+    public Post loadPost(Long id, String email){
         Account account = accountRepository.findByEmail(email);
-        Post post = postRepository.findById((long)id).get();
+        Post post = postRepository.findById(id).get();
         post.setHits(post.getHits()+1); //조회 수 +1
         savePost(post); //조회 수 +1 update
         List<Comment> commentList = commentService.findByPostIdOrderByParentCommentIdAscIdAsc(account.getId(), post);
@@ -40,41 +41,36 @@ public class PostServiceImpl implements PostService{
         return post;
     }
 
-    public List<Post> getPostList(){
-        return postRepository.findAll();
-    }
-
     public List<Post> findTop5ByOrderByIdDesc(){
         return postRepository.findTop5ByOrderByIdDesc();
     }
 
-    public List<Post> findPostByLimit(int id, int sortId){
-        if(sortId==1){
-            return postRepository.findPostByLimitOrderByNumber(id);
-        }else if(sortId==2){
+    public List<Post> findPostByLimit(Long id, PostSortType sortType){
+        if(sortType == PostSortType.recruitNumber){
+            return postRepository.findPostByLimitOrderByRecruitNumber(id);
+        }else if(sortType == PostSortType.lowFee){
             return postRepository.findPostByLimitOrderByFee(id);
         }else{
-
+            return postRepository.findPostByLimit(id);
         }
-        return postRepository.findPostByLimit(id);
     }
 
     public List<Post> findPostByConditions(int number, int periodStart, int periodEnd){
         return postRepository.findPostByConditions(number, periodStart, periodEnd);
     }
 
-    public List<Post> findPostByConditions(int id, int number, int periodStart, int periodEnd, int sortId){
-        if(sortId==1){
-            return postRepository.findPostByConditionsOrderByNumber(id, number, periodStart, periodEnd);
-        }else if(sortId==2){
+    public List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType){
+        if(sortType == PostSortType.recruitNumber){
+            return postRepository.findPostByConditionsOrderByRecruitNumber(id, number, periodStart, periodEnd);
+        }else if(sortType == PostSortType.lowFee){
             return postRepository.findPostByConditionsOrderByFee(id, number, periodStart, periodEnd);
         }else{
             return postRepository.findPostByConditions(id, number, periodStart, periodEnd);
         }
     }
 
-    public void deletePost(Post post){
-        commentService.deleteAllComment(post.getId());
-        postRepository.delete(post);
+    public void deleteById(Long id){
+        commentService.deleteAllComment(id);
+        postRepository.deleteById(id);
     }
 }

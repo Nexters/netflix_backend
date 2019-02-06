@@ -40,8 +40,8 @@ public class Post {
     @Column
     private int period; //모집 기간
 
-    @Column
-    private long number; //모집 인원 수
+    @Column(name="recruit_number")
+    private int recruitNumber; //모집 인원 수
 
     @Column
     private int fee; //요금
@@ -57,7 +57,7 @@ public class Post {
     private boolean isOpen;
 
     @Column
-    private long hits;
+    private Long hits;
 
     @ManyToOne
     @JoinColumn(name="account_id_fk",  updatable = false)
