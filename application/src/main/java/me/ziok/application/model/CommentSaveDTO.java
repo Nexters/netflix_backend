@@ -12,5 +12,5 @@ public class CommentSaveDTO {
 
     private Comment comment;
 
-    private long postId;
+    private Long postId;
 }

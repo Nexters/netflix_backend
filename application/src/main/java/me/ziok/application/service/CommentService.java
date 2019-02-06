@@ -3,24 +3,28 @@ package me.ziok.application.service;
 import me.ziok.application.model.Comment;
 import me.ziok.application.model.Post;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public interface CommentService {
 
-    public Comment saveComment(Comment comment, long postId);
+    public Comment saveComment(Comment comment, Long postId);
 
     //게시판 load시 댓글 order by 조회 - postServiceImpl에서 accountId보내줌.
-    public List<Comment> findByPostIdOrderByParentCommentIdAscIdAsc(long accountId, Post post);
+    public List<Comment> findByPostIdOrderByParentCommentIdAscIdAsc(Long accountId, Post post);
+
+    //비밀댓글 여부를 알려주는 메서드.
+    public boolean isCommentSecret(Comment c, Long accountId, Post post,List<BigInteger> accountWriteCommentId);
 
     //본인이 쓴 댓글 최신 순
     public List<Comment> findByAccountEmailOrderByIdDesc(String email);
 
     //본인이 쓴 댓글 수
-    public long countByAccountEmail(String email);
+    public Long countByAccountEmail(String email);
 
-    public void deleteComment(Comment comment);
+    public void deleteComment(Long id);
 
-    public void deleteAllComment(long postId);
+    public void deleteAllComment(Long postId);
 
     public void deleteByAccountEmail(String email);
 }

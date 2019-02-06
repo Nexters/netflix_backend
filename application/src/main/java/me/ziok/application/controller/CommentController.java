@@ -28,9 +28,9 @@ public class CommentController {
         return commentService.saveComment(commentSaveDTO.getComment(), commentSaveDTO.getPostId());
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteComment(@RequestBody Comment comment){
-        commentService.deleteComment(comment);
+    @RequestMapping(method = RequestMethod.DELETE, value="/{id}")
+    public void deleteComment(@PathVariable("id") Long id){
+        commentService.deleteComment(id);
     }
 
 }
