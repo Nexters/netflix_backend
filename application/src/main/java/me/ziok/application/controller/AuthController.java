@@ -79,31 +79,35 @@ public class AuthController {
 
     }
 
-    @PostMapping("facein")
-    public ResponseEntity<?> authenticateFaceAccount(@Valid @RequestBody LoginRequest loginRequest) {
-
-        System.out.println("authenticateFaceAccount");
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
-                )
-        );
-
-        System.out.println("authenticated");
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String token = tokenProvider.generateToken(authentication);
-
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
-    }
+//    @PostMapping("facein")
+//    public ResponseEntity<?> authenticateFaceAccount(@Valid @RequestBody LoginRequest loginRequest) {
+//
+//
+//
+//
+//
+//
+//
+//        return
+//    }
 
     @PostMapping("/facebook")
     public ResponseEntity<?> registerFacebookAccount(@Valid @RequestBody SignUpRequest2 signUpRequest2) {
         Account account = socialService.translateAccessTokenToAccount(signUpRequest2.getToken());
 
         accountService.saveAccount(account);
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        account.getEmail(),
+                        "4430515s"
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String token = tokenProvider.generateToken(authentication);
+
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/api/users/{username}")
@@ -112,7 +116,7 @@ public class AuthController {
         System.out.println("location");
         System.out.println(location);
 
-        return ResponseEntity.created(location).body(new ApiResponse(true, "Account registered successfully"));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
 
     }
 
