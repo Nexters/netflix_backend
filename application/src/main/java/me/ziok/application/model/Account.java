@@ -11,9 +11,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Table(name = "account", uniqueConstraints = {
         @UniqueConstraint(columnNames = "account_id")
 })
+@NoArgsConstructor
 public class Account {
 
     @Id
@@ -21,28 +23,26 @@ public class Account {
     private Long id;
 
     @NotBlank
-    @Column(name="account_id", nullable = false, unique = true)
+    @NonNull
+    @Column(name="email", nullable = false, unique = true)
     @Email
-    private String accountId; //아이디(이메일형식)
+    private String email; //아이디(이메일형식)
 
+    @NonNull
     @NotBlank
     @JsonIgnore
     @Column
     private String password;
 
-    @NotBlank
-    @Column(name="nick_name", nullable = false)
+    @Column(name="nick_name")
     private String nickName; //닉네임
 
   //  @Column(nullable = false)
  //   private Boolean isEmailVerified = false;
 
-   // private String imageUrl;
-/*
-    @NotNull
+
     @Enumerated(EnumType.STRING)
-    private AuthProviderType provider;
+    private AuthProviderType providerType;
 
     private String providerId;
-*/
 }

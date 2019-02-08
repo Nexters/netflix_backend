@@ -4,7 +4,7 @@ import org.springframework.security.core.Authentication;
 
 public interface TokenProvider {
 
-    String createToken(Authentication authentication);
+    String generateToken(Authentication authentication);
     Long getAccountIdFromToken(String token);
     boolean validateToken(String authToken);
 }

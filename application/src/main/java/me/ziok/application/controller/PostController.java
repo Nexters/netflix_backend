@@ -1,7 +1,9 @@
 package me.ziok.application.controller;
 
 import me.ziok.application.model.Account;
+import me.ziok.application.model.Comment;
 import me.ziok.application.model.Post;
+import me.ziok.application.model.PostSortType;
 import me.ziok.application.service.CommentService;
 import me.ziok.application.service.CommentServiceImpl;
 import me.ziok.application.service.PostService;
@@ -23,56 +25,51 @@ public class PostController {
     @Autowired
     PostService postService;
 
-    @Autowired
-    CommentService commentService;
-
-    //post 생성, 수정
+    //post 생성
     @RequestMapping(method= RequestMethod.POST)
-    public void savePost(@RequestBody Post post){
+    public Post savePost(@RequestBody Post post){
+        return postService.savePost(post);
+    }
 
-        Account account = new Account();
-        account.setId((long)48);
-        post.setAccount(account);//account 정보가져와서 set해야함.
-
-        postService.savePost(post);
+    //post 수정
+    @RequestMapping(method= RequestMethod.PUT)
+    public Post updatePost(@RequestBody Post post){
+        return postService.savePost(post);
     }
 
     //post 상세보기
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public Post getPost(@PathVariable int id){
-        Post post = postService.getPost(id);
-        post.setHits(post.getHits()+1); //조회 수 +1
-        savePost(post); //조회 수 +1 update
-        return post;
+    public Post getPost(@PathVariable Long id, String email){
+        return postService.loadPost(id, email);
     }
 
     //postList - 게시판 첫 요청 시
-    @RequestMapping(method=RequestMethod.GET, value="list")
+    @RequestMapping(method=RequestMethod.GET)
     public List<Post> getPostList() {
         return postService.findTop5ByOrderByIdDesc();
     }
 
     //postList - 마지막 글 번호를 파라미터로 받고 그 다음 글 5개 리턴
-    @RequestMapping(method=RequestMethod.GET, value="list/{id}")
-    public List<Post> getPostList(@PathVariable int id) {
-        return postService.findPostByLimit(id);
+    @RequestMapping(method=RequestMethod.GET, value="/list")
+    public List<Post> getPostList(Long lastPostId, PostSortType sortType) {
+        return postService.findPostByLimit(lastPostId,sortType);
     }
 
-    //postLit - 첫 필터링 후 조회 시 조건에 해당하는 글 리턴
-    @RequestMapping(method=RequestMethod.GET, value="list/conditions")
+    //postList - 첫 필터링 후 조회 시 조건에 해당하는 글 리턴
+    @RequestMapping(method=RequestMethod.GET, value="/list/conditions")
     public List<Post> getPostListByConditions(int number, int periodStart, int periodEnd) {
         return postService.findPostByConditions(number, periodStart, periodEnd);
     }
+
     //postList - 마지막 글 번호를 파라미터로 받고 조건에 해당하는 그 다음 글 5개 리턴
-    @RequestMapping(method=RequestMethod.GET, value="list/conditions/{id}")
-    public List<Post> getPostListByConditions(@PathVariable int id, int number, int periodStart, int periodEnd) {
-        return postService.findPostByConditions(id ,number, periodStart, periodEnd);
+    @RequestMapping(method=RequestMethod.GET, value="/list/conditions/{lastPostId}")
+    public List<Post> getPostListByConditions(@PathVariable("lastPostId") Long lastPostId, int number, int periodStart, int periodEnd, PostSortType sortType) {
+        return postService.findPostByConditions(lastPostId ,number, periodStart, periodEnd, sortType);
     }
 
-    //post 삭제(Comment 제외)
-    @RequestMapping(method=RequestMethod.DELETE)
-    public void deletePost(Post post){
-       // commentService.deleteByPostId(post.getId());
-        postService.deletePost(post);
+    //post 삭제
+    @RequestMapping(method=RequestMethod.DELETE, value="/{id}")
+    public void deletePost(@PathVariable Long id){
+        postService.deleteById(id);
     }
 }
