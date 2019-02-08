@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +48,10 @@ public class CookieUtilsTest {
 
     @Test
     public  void addCookie() {
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
         boolean expResult = false;
         //when
         boolean result = CookieUtils.addCookie(response,null, null, 1);
@@ -60,6 +66,10 @@ public class CookieUtilsTest {
 
         //then
         assertEquals(expResult, result);
+
+
+        System.out.println(CookieUtils.getCookie(request, "cookieNmae"));
+
     }
 
 }

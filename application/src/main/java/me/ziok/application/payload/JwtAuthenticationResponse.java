@@ -8,11 +8,13 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class AuthResponse {
+public class JwtAuthenticationResponse {
 
     @NonNull
     private String accessToken;
-    //todo: "Bearer" 가 별 뜻 없으면 딴걸로 바꾸기
     private String tokenType = "Bearer";
+
+
+
 
 }
