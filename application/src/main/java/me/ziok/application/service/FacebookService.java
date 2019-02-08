@@ -17,9 +17,10 @@ public class FacebookService implements SocialService {
     @Override
     public Account translateAccessTokenToAccount(String accessToken) {
 
+        String [] fields = { "id","name","birthday","email","location","hometown","gender","first_name","last_name"};
         Facebook facebook = new FacebookTemplate(accessToken);
 
-        User userProfile = facebook.userOperations().getUserProfile();
+        User userProfile = facebook.fetchObject("me",User.class,fields);
 
         //todo: email 외 다른 정보들도 다 넣어주기
         Account account = new Account(userProfile.getEmail(),userProfile.getId());

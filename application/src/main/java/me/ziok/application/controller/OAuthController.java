@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/oAuth")
 public class OAuthController {
@@ -38,6 +37,8 @@ public class OAuthController {
 
     @Autowired
     AccountService accountService;
+
+
 
     @PostMapping("/signIn/facebook")
     public ResponseEntity<?> authenticateFacebookAccount(@Valid @RequestBody SocialSignInRequest request) {
