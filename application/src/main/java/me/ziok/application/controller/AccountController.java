@@ -6,9 +6,6 @@ import me.ziok.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
-
 @RestController
 @RequestMapping("accounts")
 public class AccountController {

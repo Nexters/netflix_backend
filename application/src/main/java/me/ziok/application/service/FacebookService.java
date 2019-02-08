@@ -1,6 +1,7 @@
 package me.ziok.application.service;
 
 import me.ziok.application.model.Account;
+import me.ziok.application.model.AuthProviderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.User;
@@ -21,7 +22,10 @@ public class FacebookService implements SocialService {
         User userProfile = facebook.userOperations().getUserProfile();
 
         //todo: email 외 다른 정보들도 다 넣어주기
-        Account account = new Account(userProfile.getEmail(), "4430515s");
+        Account account = new Account(userProfile.getEmail(),userProfile.getId());
+        account.setProviderType(AuthProviderType.FACEBOOK);
+        account.setProviderId(userProfile.getId());
+        account.setNickName(userProfile.getName());
 
         return account;
     }
