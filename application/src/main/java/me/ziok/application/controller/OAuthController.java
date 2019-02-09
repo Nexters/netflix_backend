@@ -44,8 +44,7 @@ public class OAuthController {
     public ResponseEntity<?> authenticateFacebookAccount(@Valid @RequestBody SocialSignInRequest request) {
 
         Account account = socialService.translateAccessTokenToAccount(request.getToken());
-
-        accountService.saveAccount(account);
+        socialService.saveAccount(account);
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
