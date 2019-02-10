@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "account", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "account_id")
+        @UniqueConstraint(columnNames = "email")
 })
 @NoArgsConstructor
 public class Account {
@@ -36,10 +36,6 @@ public class Account {
 
     @Column(name="nick_name")
     private String nickName; //닉네임
-
-  //  @Column(nullable = false)
- //   private Boolean isEmailVerified = false;
-
 
     @Enumerated(EnumType.STRING)
     private AuthProviderType providerType;

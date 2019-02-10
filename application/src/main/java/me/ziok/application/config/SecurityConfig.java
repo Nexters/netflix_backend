@@ -78,10 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/**/*.png",
                     "/**/*.gif",
                     "/**/*.svg",
-                    "/**/*.jpg",
-                    "/**/*.html",
-                    "/**/*.css",
-                    "/**/*.js")
+                    "/**/*.jpg"
+                    )
                 .permitAll()
             .antMatchers("/auth/**","/oAuth/**")
                 .permitAll()
@@ -89,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .anyRequest()
                 .authenticated();
+
 
         http.addFilterBefore(oncePerRequestFilter(), UsernamePasswordAuthenticationFilter.class)
 

@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-    username: user1
-    password: test123
+    username: root
+    password: rootpassword
     dbcp2:
       time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
 
@@ -16,6 +16,13 @@ spring:
         format_sql: true
 
     show-sql: true
+
+server:
+  ssl:
+    key-store: keystore.p12
+    key-store-password: 4430515s
+    keyStoreType: PKCS12
+    keyAlias: tomcat
 
 app:
   jwtSecret: JWTSuperSecretKey
