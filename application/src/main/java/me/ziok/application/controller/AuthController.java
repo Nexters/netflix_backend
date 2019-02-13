@@ -1,5 +1,6 @@
 package me.ziok.application.controller;
 
+import me.ziok.application.exceptions.BadRequestException;
 import me.ziok.application.infra.RequestToAccount;
 import me.ziok.application.model.Account;
 import me.ziok.application.payload.*;
@@ -60,7 +61,7 @@ public class AuthController {
     public ResponseEntity<?> registerAccount(@Valid @RequestBody SignUpRequest signUpRequest) {
 
         if (!accountService.isAbleToRegister(signUpRequest.getEmail(), signUpRequest.getNickName())) {
-            //todo: throw error
+            throw new BadRequestException("Imposible to sign up with the email or nickname");
         }
 
         Account requestedAccount = RequestToAccount.toAccount(signUpRequest);
