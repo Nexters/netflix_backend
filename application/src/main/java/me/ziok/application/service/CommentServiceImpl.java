@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     AccountRepository accountRepository;
 
     public Comment saveComment(Comment comment, Long postId){
-         comment.setAccount(accountRepository.findByEmail(comment.getAccount().getEmail()));
+        comment.setAccount(accountRepository.findByEmail(comment.getAccount().getEmail()).orElse(null));
 
         Post post = new Post();
         post.setId(postId);

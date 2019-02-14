@@ -1,11 +1,9 @@
 package me.ziok.application.controller;
 
+import me.ziok.application.exceptions.BadRequestException;
 import me.ziok.application.infra.RequestToAccount;
 import me.ziok.application.model.Account;
-import me.ziok.application.payload.ApiResponse;
-import me.ziok.application.payload.JwtAuthenticationResponse;
-import me.ziok.application.payload.LoginRequest;
-import me.ziok.application.payload.SignUpRequest;
+import me.ziok.application.payload.*;
 import me.ziok.application.security.JwtTokenProvider;
 import me.ziok.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +23,8 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
-
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -41,14 +37,16 @@ public class AuthController {
     @Autowired
     AccountService accountService;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateAccount(@Valid @RequestBody LoginRequest loginRequest) {
+    @PostMapping("/signIn")
+    public ResponseEntity<?> authenticateAccount(@Valid @RequestBody SignInRequest signInRequest) {
 
+
+        //todo: authService든, tokenService든 만들어서 거기서 처리
         //todo: 인자를 이메일, 패스워드 두개 받는 함수를 만들고, 그 안에서 authenticate 호출하기.
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
+                        signInRequest.getEmail(),
+                        signInRequest.getPassword()
                 )
         );
 
@@ -56,14 +54,14 @@ public class AuthController {
 
         String jwt = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signUp")
     public ResponseEntity<?> registerAccount(@Valid @RequestBody SignUpRequest signUpRequest) {
 
         if (!accountService.isAbleToRegister(signUpRequest.getEmail(), signUpRequest.getNickName())) {
-
+            throw new BadRequestException("Imposible to sign up with the email or nickname");
         }
 
         Account requestedAccount = RequestToAccount.toAccount(signUpRequest);
