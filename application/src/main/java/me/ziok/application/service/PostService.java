@@ -13,6 +13,10 @@ public interface PostService {
 
     public Post loadPost(Long id, String email);
 
+    List<Post> loadOpenPostsWithAccountId(Long accountId);
+
+    List<Post> loadClosedPostsWithAccountId(Long accountId);
+
     public List<Post> findTop5ByOrderByIdDesc();
 
     public List<Post> findPostByLimit(Long id, PostSortType sortType);
@@ -22,4 +26,6 @@ public interface PostService {
     public List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType);
 
     public void deleteById(Long id);
+
+
 }

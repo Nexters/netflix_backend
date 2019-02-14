@@ -8,9 +8,7 @@ import me.ziok.application.model.Post;
 import me.ziok.application.model.PostSortType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -42,6 +40,14 @@ public class PostServiceImpl implements PostService{
         return post;
     }
 
+    public List<Post> loadOpenPostsWithAccountId(Long accountId) {
+        return postRepository.findByIsOpenTrueAndAccount_IdOrderByCreateDateDesc(accountId);
+    }
+
+    public List<Post> loadClosedPostsWithAccountId(Long accountId) {
+        return postRepository.findByIsOpenFalseAndAccount_IdOrderByCreateDateDesc(accountId);
+    }
+
     public List<Post> findTop5ByOrderByIdDesc(){
         return postRepository.findTop5ByOrderByIdDesc();
     }
@@ -60,7 +66,7 @@ public class PostServiceImpl implements PostService{
         return postRepository.findPostByConditions(number, periodStart, periodEnd);
     }
 
-    public List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType){
+    public List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType) {
         if(sortType == PostSortType.recruitNumber){
             return postRepository.findPostByConditionsOrderByRecruitNumber(id, number, periodStart, periodEnd);
         }else if(sortType == PostSortType.lowFee){

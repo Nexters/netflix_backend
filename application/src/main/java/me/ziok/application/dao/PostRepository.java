@@ -28,6 +28,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT * FROM post WHERE id < ?1 ORDER BY fee ASC, id DESC limit 5", nativeQuery = true)
     List<Post> findPostByLimitOrderByFee(Long id);
 
+    List<Post> findByIsOpenTrueAndAccount_IdOrderByCreateDateDesc(Long id);
+
+    List<Post> findByIsOpenFalseAndAccount_IdOrderByCreateDateDesc(Long id);
+
 
     //recruitNumber : 구하는 사람 수, periodStart ~ periodEnd : 함께 시청할 기간
     @Query(value="SELECT * FROM post WHERE recruit_number = ?1 AND (period BETWEEN ?2 AND ?3) ORDER BY id DESC limit 5", nativeQuery = true)
