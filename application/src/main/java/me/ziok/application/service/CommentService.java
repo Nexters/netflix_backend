@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CommentService {
 
-    public Comment saveComment(Comment comment, Long postId);
+    public void saveComment(Comment comment, Long postId);
 
     //게시판 load시 댓글 order by 조회 - postServiceImpl에서 accountId보내줌.
     public List<Comment> findByPostIdOrderByParentCommentIdAscIdAsc(Long accountId, Post post);

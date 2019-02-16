@@ -5,8 +5,8 @@ import lombok.Setter;
 
 public enum PostSortType {
 
-    //최신순, 남은인원 순, 저가순
-    recent(0), recruitNumber(1), lowFee(2);
+    //최신순, 저가순
+    recent(0), lowFee(1);
 
     private int value;
     PostSortType(int value) {
@@ -20,9 +20,7 @@ public enum PostSortType {
             case 0 :
                 return recent;
             case 1:
-                return recruitNumber;
-            case 2:
-                return lowFee;
+               return lowFee;
             default:
                 return recent;
         }

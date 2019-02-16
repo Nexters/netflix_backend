@@ -21,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     AccountRepository accountRepository;
 
-    public Comment saveComment(Comment comment, Long postId){
-        comment.setAccount(accountRepository.findByEmail(comment.getAccount().getEmail()).orElse(null));
+    public void saveComment(Comment comment, Long postId){
+         comment.setAccount(accountRepository.findByEmail(comment.getAccount().getEmail()).orElse(null));
 
         Post post = new Post();
         post.setId(postId);
@@ -32,9 +32,9 @@ public class CommentServiceImpl implements CommentService {
             //댓글일 경우 parentCommentId가 본인이기 때문에 저장한 객체의 commnentParentId를 update해야한다.
             comment = commentRepository.save(comment);
             comment.setParentCommentId(comment.getId());
-            return commentRepository.save(comment);
+             commentRepository.save(comment);
         }else{
-            return commentRepository.save(comment);
+             commentRepository.save(comment);
         }
     }
 

@@ -80,6 +80,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!-- aws s3 -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.495</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook -->
         <dependency>
             <groupId>org.springframework.social</groupId>
