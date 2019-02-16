@@ -19,18 +19,18 @@ public class CommentController {
     CommentService commentService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public Comment saveComment(@RequestBody CommentSaveDTO commentSaveDTO){
-        return commentService.saveComment(commentSaveDTO.getComment(), commentSaveDTO.getPostId());
+    public void saveComment(@RequestBody CommentSaveDTO commentSaveDTO){
+        commentService.saveComment(commentSaveDTO.getComment(), commentSaveDTO.getPostId());
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Comment updateComment(@RequestBody CommentSaveDTO commentSaveDTO){
-        return commentService.saveComment(commentSaveDTO.getComment(), commentSaveDTO.getPostId());
+    public void updateComment(@RequestBody CommentSaveDTO commentSaveDTO){
+         commentService.saveComment(commentSaveDTO.getComment(), commentSaveDTO.getPostId());
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value="/{id}")
-    public void deleteComment(@PathVariable("id") Long id){
-        commentService.deleteComment(id);
+    @RequestMapping(method = RequestMethod.DELETE, value="/{commentId}")
+    public void deleteComment(@PathVariable("commentId") Long commentId){
+        commentService.deleteComment(commentId);
     }
 
 }

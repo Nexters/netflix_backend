@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "account", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "account_id")
+        @UniqueConstraint(columnNames = "email")
 })
 @NoArgsConstructor
 public class Account {

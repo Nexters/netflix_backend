@@ -1,22 +1,39 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-    username: user1
-    password: test123
+    url : jdbc:mysql://netflixshare.cspjxuemdg0a.ap-northeast-2.rds.amazonaws.com:3306/netflixshare?serverTimezone=Asia/Seoul
+    #url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username:  #user1
+    password:  #test123
     dbcp2:
       time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        format_sql: true
 
-    show-sql: true
+  #jpa:
+  #  hibernate:
+  #    ddl-auto: create
+  #  properties:
+  #    hibernate:
+  #      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  #      format_sql: true
+
+  #  show-sql: true
 
 app:
   jwtSecret: JWTSuperSecretKey
   jwtExpirationInMs: 604800000
+
+server:
+  port:
+
+#aws s3 local Test
+cloud:
+  aws:
+    stack:
+      auto : false
+    credentials:
+      instanceProfile : true #aws의 instanceProfile을 사용하겠다.
+    s3 :
+      bucket : netflixsharebucket
+    region :
+      static : ap-northeast-2
