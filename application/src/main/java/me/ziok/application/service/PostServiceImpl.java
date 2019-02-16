@@ -74,6 +74,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByIsOpenFalseAndAccount_IdOrderByCreateDateDesc(accountId);
     }
 
+    public Post loadPostByComment(Comment comment) {
+        return postRepository.findByComment(comment);
+    }
+
     public List<Post> findTop5ByOrderByIdDesc(){
         return postRepository.findTop5ByOrderByIdDesc();
     }
@@ -103,6 +107,52 @@ public class PostServiceImpl implements PostService {
         commentService.deleteAllComment(id);
         imageService.deleteImage(id);//aws s3와 db에 저장된 해당 postId의 파일들 삭제
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Post> findPostsWithCommentsByAccountId(Long accountId) {
+
+        List<Comment> commentsWrittenByAccountId = commentService.loadByAccountIdOrderByIdDesc(accountId);
+
+        return extractUniquePostsWithComment(commentsWrittenByAccountId);
+
+
+    }
+
+    private List<Post> extractUniquePostsWithComment(List<Comment> commentsWrittenByAccountId) {
+        List<Post> tempPosts = new ArrayList<>();
+
+        List<Post> postsUnique = new ArrayList<>();
+
+        for (Comment comment : commentsWrittenByAccountId) {
+            List<Comment> tempCommentList = new ArrayList<>();
+            Post postUnique = new Post();
+            Post postWithComment = loadPostByComment(comment);
+
+            if (tempPosts.contains(postWithComment)) {
+                continue;
+            }
+
+            tempPosts.add(postWithComment);
+            tempCommentList.add(comment);
+
+            //todo: builder 패턴으로 바꾸기
+            postUnique.setContent(postWithComment.getContent());
+            postUnique.setPostName(postWithComment.getPostName());
+            postUnique.setAccount(postWithComment.getAccount());
+            postUnique.setId(postWithComment.getId());
+            postUnique.setComment(tempCommentList);
+            postUnique.setHits(postWithComment.getHits());
+            postUnique.setCreateDate(postWithComment.getCreateDate());
+            postUnique.setFee(postWithComment.getFee());
+            postUnique.setImg(postWithComment.getImg());
+            postUnique.setMembership(postWithComment.getMembership());
+
+            postsUnique.add(postUnique);
+
+        }
+
+        return postsUnique;
     }
 
 }

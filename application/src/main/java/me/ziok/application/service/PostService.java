@@ -1,5 +1,6 @@
 package me.ziok.application.service;
 
+import me.ziok.application.model.Comment;
 import me.ziok.application.model.Post;
 import me.ziok.application.model.PostSortType;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public interface PostService {
 
     List<Post> loadClosedPostsWithAccountId(Long accountId);
 
+    Post loadPostByComment(Comment comment);
+
     List<Post> findTop5ByOrderByIdDesc();
 
     List<Post> findPostByLimit(Long id, PostSortType sortType);
@@ -32,4 +35,6 @@ public interface PostService {
     List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType);
 
     void deleteById(Long id);
+
+    List<Post> findPostsWithCommentsByAccountId(Long accountId);
 }

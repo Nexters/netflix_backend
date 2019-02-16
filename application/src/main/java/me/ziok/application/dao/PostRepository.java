@@ -1,5 +1,6 @@
 package me.ziok.application.dao;
 
+import me.ziok.application.model.Comment;
 import me.ziok.application.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,6 +30,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByIsOpenTrueAndAccount_IdOrderByCreateDateDesc(Long id);
 
     List<Post> findByIsOpenFalseAndAccount_IdOrderByCreateDateDesc(Long id);
+
+    Post findByComment(Comment comment);
 
 
     //recruitNumber : 구하는 사람 수, periodStart ~ periodEnd : 함께 시청할 기간

@@ -2,6 +2,7 @@ package me.ziok.application.service;
 
 import me.ziok.application.model.Account;
 import me.ziok.application.model.AuthProviderType;
+import me.ziok.application.model.ProfileDTO;
 
 public interface AccountService {
     Account loadAccountById(Long id);
@@ -12,7 +13,7 @@ public interface AccountService {
     //todo: update에 nickname 설정하는 것 넣기
     Account updateAccount(Account account);
     boolean isAbleToRegister(String email, String nickName);
-    String getRandomPw(int len);
 
 
+    ProfileDTO constructProfile(Long accountId);
 }

@@ -15,4 +15,8 @@ public class ProfileDTO {
     private int commentNum;
 
     private List<Post> incompletePosts;
+
+    private List<Post> completePosts;
+
+    private List<Post> PostsWithComment;
 }

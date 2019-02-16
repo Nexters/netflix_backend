@@ -19,6 +19,8 @@ public interface CommentService {
     //본인이 쓴 댓글 최신 순
     public List<Comment> findByAccountEmailOrderByIdDesc(String email);
 
+    List<Comment> loadByAccountIdOrderByIdDesc(Long accountId);
+
     //본인이 쓴 댓글 수
     public Long countByAccountEmail(String email);
 
