@@ -24,6 +24,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     //내가 쓴 댓글(최신순) 조회
     public List<Comment> findByAccountEmailOrderByIdDesc(String email);
 
+    List<Comment> findByAccountIdOrderByIdDesc(Long accountId);
+
     //내가 쓴 댓글 개수
     public Long countByAccountEmail(String email);
 

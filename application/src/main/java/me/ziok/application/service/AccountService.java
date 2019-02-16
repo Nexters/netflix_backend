@@ -2,6 +2,7 @@ package me.ziok.application.service;
 
 import me.ziok.application.model.Account;
 import me.ziok.application.model.AuthProviderType;
+import me.ziok.application.model.ProfileDTO;
 
 public interface AccountService {
     Account loadAccountById(Long id);
@@ -14,4 +15,5 @@ public interface AccountService {
     boolean isAbleToRegister(String email, String nickName);
 
 
+    ProfileDTO constructProfile(Long accountId);
 }

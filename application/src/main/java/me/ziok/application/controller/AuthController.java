@@ -7,18 +7,16 @@ import me.ziok.application.payload.*;
 import me.ziok.application.security.JwtTokenProvider;
 import me.ziok.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -36,6 +34,10 @@ public class AuthController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    private MessageSource messages;
+
 
     @PostMapping("/signIn")
     public ResponseEntity<?> authenticateAccount(@Valid @RequestBody SignInRequest signInRequest) {

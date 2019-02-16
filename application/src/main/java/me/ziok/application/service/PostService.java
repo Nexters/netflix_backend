@@ -1,5 +1,6 @@
 package me.ziok.application.service;
 
+import me.ziok.application.model.Comment;
 import me.ziok.application.model.Post;
 import me.ziok.application.model.PostSortType;
 import org.springframework.stereotype.Service;
@@ -11,22 +12,30 @@ import java.util.Map;
 
 public interface PostService {
 
-    public void savePost(Post post, String email, MultipartFile[] multipartFiles);
+    void savePost(Post post, String email, MultipartFile[] multipartFiles);
 
     //public Post updatePost(Post post, Long postId);
 
-    public void updatePost(Post post, String email, String[] imageNames,MultipartFile[] multipartFiles);
+    void updatePost(Post post, String email, String[] imageNames,MultipartFile[] multipartFiles);
 
-        public Post loadPost(Long id, String email);
+    Post loadPost(Long id, String email);
+
+    List<Post> loadOpenPostsWithAccountId(Long accountId);
 
     public List<Post> findTop20ByOrderByIdDesc();
 
-    public List<Post> findPostByLimit(Long id, PostSortType sortType);
+    List<Post> loadClosedPostsWithAccountId(Long accountId);
 
-    public List<Post> findPostByConditions(int number, int periodStart, int periodEnd);
+    Post loadPostByComment(Comment comment);
 
-    public List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType);
 
-    public void deleteById(Long id);
+    List<Post> findPostByLimit(Long id, PostSortType sortType);
 
+    List<Post> findPostByConditions(int number, int periodStart, int periodEnd);
+
+    List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType);
+
+    void deleteById(Long id);
+
+    List<Post> findPostsWithCommentsByAccountId(Long accountId);
 }
