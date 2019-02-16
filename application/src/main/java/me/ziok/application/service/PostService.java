@@ -19,7 +19,7 @@ public interface PostService {
 
         public Post loadPost(Long id, String email);
 
-    public List<Post> findTop5ByOrderByIdDesc();
+    public List<Post> findTop20ByOrderByIdDesc();
 
     public List<Post> findPostByLimit(Long id, PostSortType sortType);
 
