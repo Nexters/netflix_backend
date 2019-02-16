@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: operation
 #aws s3 local Test
 cloud:
   aws:
@@ -51,7 +51,7 @@ spring:
       time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
