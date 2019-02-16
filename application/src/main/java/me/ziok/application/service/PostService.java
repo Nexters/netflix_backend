@@ -22,11 +22,12 @@ public interface PostService {
 
     List<Post> loadOpenPostsWithAccountId(Long accountId);
 
+    public List<Post> findTop20ByOrderByIdDesc();
+
     List<Post> loadClosedPostsWithAccountId(Long accountId);
 
     Post loadPostByComment(Comment comment);
 
-    List<Post> findTop5ByOrderByIdDesc();
 
     List<Post> findPostByLimit(Long id, PostSortType sortType);
 

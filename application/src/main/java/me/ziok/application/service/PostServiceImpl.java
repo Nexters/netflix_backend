@@ -66,6 +66,7 @@ public class PostServiceImpl implements PostService {
         return post;
     }
 
+
     public List<Post> loadOpenPostsWithAccountId(Long accountId) {
         return postRepository.findByIsOpenTrueAndAccount_IdOrderByCreateDateDesc(accountId);
     }
@@ -78,8 +79,9 @@ public class PostServiceImpl implements PostService {
         return postRepository.findByComment(comment);
     }
 
-    public List<Post> findTop5ByOrderByIdDesc(){
-        return postRepository.findTop5ByOrderByIdDesc();
+
+    public List<Post> findTop20ByOrderByIdDesc(){
+        return postRepository.findTop20ByOrderByIdDesc();
     }
 
     public List<Post> findPostByLimit(Long id, PostSortType sortType){
