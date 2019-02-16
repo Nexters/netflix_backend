@@ -1,6 +1,17 @@
 spring:
   profiles:
     active: local
+#aws s3 local Test
+cloud:
+  aws:
+    stack:
+      auto : false
+    credentials:
+      instanceProfile : true #aws의 instanceProfile을 사용하겠다.
+    s3 :
+      bucket : netflixsharebucket
+    region :
+      static : ap-northeast-2
 
 ---
 
@@ -8,14 +19,15 @@ spring:
   profiles: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+
+    url : jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
     username: root
     password: rootpassword
     dbcp2:
       time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -56,3 +68,4 @@ server:
     key-store-password: rootpassword
     key-store-type: PKCS12
     key-alias: tomcat
+

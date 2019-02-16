@@ -1,10 +1,12 @@
 package me.ziok.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -54,10 +57,10 @@ public class Post {
     private LocalDateTime createDate;
 
     @Column(name="is_open_flag")
-    private boolean isOpen;
+    private boolean isOpen=true;
 
-    @Column
-    private Long hits;
+    @Column(nullable=false)
+    private Long hits = Long.valueOf(0);
 
     @ManyToOne
     @JoinColumn(name="account_id_fk",  updatable = false)
@@ -66,5 +69,15 @@ public class Post {
     @OneToMany
     @JoinColumn(name="post_id_fk", updatable = false)
     private List<Comment> comment;
+
+    @OneToMany
+    @JoinColumn(name="post_id_fk", updatable = false)
+    private List<Image> img;
+
+/*
+    @Transient
+    private Map<String, String> imageMap;
+*/
+
 
 }
