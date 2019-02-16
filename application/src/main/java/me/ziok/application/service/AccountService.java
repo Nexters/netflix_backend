@@ -12,6 +12,7 @@ public interface AccountService {
     //todo: update에 nickname 설정하는 것 넣기
     Account updateAccount(Account account);
     boolean isAbleToRegister(String email, String nickName);
+    String getRandomPw(int len);
 
 
 }
