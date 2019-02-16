@@ -1,6 +1,14 @@
 spring:
+  profiles:
+    active: operation
+
+---
+
+spring:
+  profiles: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+<<<<<<< HEAD
     url : jdbc:mysql://netflixshare.cspjxuemdg0a.ap-northeast-2.rds.amazonaws.com:3306/netflixshare?serverTimezone=Asia/Seoul
     #url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
     username:  #user1
@@ -18,12 +26,52 @@ spring:
   #      format_sql: true
 
   #  show-sql: true
+=======
+    url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: rootpassword
+    dbcp2:
+      time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    show-sql: true
+
+app:
+  jwtSecret: JWTSuperSecretKey
+  jwtExpirationInMs: 604800000
+
+---
+
+spring:
+  profiles: operation
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: rootpassword
+    dbcp2:
+      time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    show-sql: true
+>>>>>>> 9bb2b2b99d6b3db771ef07af7b3337efe1d3d93f
 
 app:
   jwtSecret: JWTSuperSecretKey
   jwtExpirationInMs: 604800000
 
 server:
+<<<<<<< HEAD
   port:
 
 #aws s3 local Test
@@ -37,3 +85,10 @@ cloud:
       bucket : netflixsharebucket
     region :
       static : ap-northeast-2
+=======
+  ssl:
+    key-store: keystore.p12
+    key-store-password: rootpassword
+    key-store-type: PKCS12
+    key-alias: tomcat
+>>>>>>> 9bb2b2b99d6b3db771ef07af7b3337efe1d3d93f

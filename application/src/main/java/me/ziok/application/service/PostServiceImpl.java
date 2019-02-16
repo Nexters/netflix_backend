@@ -57,6 +57,7 @@ public class PostServiceImpl implements PostService {
     public Post loadPost(Long id, String email){
         Account account = accountRepository.findByEmail(email).orElse(null);
         Post post = postRepository.findById(id).get();
+        //todo: hits를 설정하지 않아도
         post.setHits(post.getHits()+1); //조회 수 +1
         postRepository.save(post); //조회 수 +1 update
         List<Comment> commentList = commentService.findByPostIdOrderByParentCommentIdAscIdAsc(account.getId(), post);
