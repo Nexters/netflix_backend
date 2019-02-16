@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -31,7 +32,7 @@ public class PostController  {
     PostService postService;
 
     //post 생성
-    @RequestMapping(method= RequestMethod.POST)
+   @RequestMapping(method= RequestMethod.POST)
     public void savePost(Post post, @RequestParam("email") String email, @RequestParam("files")MultipartFile[] multipartFiles){
         postService.savePost(post, email, multipartFiles);
     }
@@ -51,7 +52,7 @@ public class PostController  {
     //postList - 게시판 첫 요청 시(lastPostId x, 필터 x, 글 정렬x)
     @RequestMapping(method=RequestMethod.GET, value="/list")
     public List<Post> getPostList() {
-        return postService.findTop5ByOrderByIdDesc();
+        return postService.findTop20ByOrderByIdDesc();
     }
 
     //postList - 마지막 글 번호를 파라미터로 받고 그 다음 글 5개 리턴(lastPostId o, 필터 x, 글 정렬o)
