@@ -25,12 +25,12 @@ public class AccountController {
 
     //todo: registerAccount와 겹침. 버리던지 해야함.
     @RequestMapping(method = RequestMethod.POST)
-    public Account createAccount(@RequestBody Account account) {
+    public Account createAccount(Account account) {
         return accountService.saveAccount(account);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public Account updateAccount(@PathVariable Long id,@RequestBody Account accountDetails) {
+    public Account updateAccount(@PathVariable Long id, Account accountDetails) {
 
         return accountService.updateAccount(id, accountDetails);
     }
