@@ -19,12 +19,12 @@ public class CommentController {
     CommentService commentService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public void saveComment(@RequestBody CommentSaveDTO commentSaveDTO){
+    public void saveComment(@RequestParam CommentSaveDTO commentSaveDTO){
         commentService.saveComment(commentSaveDTO.getComment(), commentSaveDTO.getPostId());
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void updateComment(@RequestBody CommentSaveDTO commentSaveDTO){
+    public void updateComment(@RequestParam CommentSaveDTO commentSaveDTO){
          commentService.saveComment(commentSaveDTO.getComment(), commentSaveDTO.getPostId());
     }
 
