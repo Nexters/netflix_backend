@@ -1,6 +1,10 @@
 spring:
   profiles:
     active: local
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size:  100MB
 #aws s3 local Test
 cloud:
   aws:
@@ -44,9 +48,10 @@ spring:
   profiles: operation
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-    username: root
-    password: rootpassword
+    #url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    url :
+    username:  #root
+    password:  #rootpassword
     dbcp2:
       time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
   jpa:
