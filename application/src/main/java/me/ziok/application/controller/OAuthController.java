@@ -13,10 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 @RestController
@@ -41,9 +38,9 @@ public class OAuthController {
 
 
     @PostMapping("/signIn/facebook")
-    public ResponseEntity<?> authenticateFacebookAccount(@Valid @RequestBody SocialSignInRequest request) {
+    public ResponseEntity<?> authenticateFacebookAccount(@Valid @RequestParam String token) {
 
-        Account account = socialService.translateAccessTokenToAccount(request.getToken());
+        Account account = socialService.translateAccessTokenToAccount(token);
         socialService.saveAccount(account);
 
         Authentication authentication = authenticationManager.authenticate(
@@ -55,9 +52,9 @@ public class OAuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = tokenProvider.generateToken(authentication);
+        String generateToken = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(new AuthResponse(token));
+        return ResponseEntity.ok(new AuthResponse(generateToken));
 
     }
 }
