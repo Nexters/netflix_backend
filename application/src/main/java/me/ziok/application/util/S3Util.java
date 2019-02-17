@@ -26,10 +26,10 @@ import java.io.FileNotFoundException;
 public class S3Util {
 
    // @Value("${aws.credentials.accessKey}")
-   static private String accessKey="";
+   static private String accessKey="#";
 
-   // @Value("${aws.credentials.secretKey}")
-   static private String secretKey="";
+    // @Value("${aws.credentials.secretKey}")
+   static private String secretKey="#";
 
     private AmazonS3 connection;
 

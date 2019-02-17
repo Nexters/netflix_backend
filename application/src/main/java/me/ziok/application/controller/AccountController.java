@@ -34,4 +34,22 @@ public class AccountController {
         return accountService.deleteAccount(id);
 
     }
+
+    //사용자 email 존재 시 email로 인증 코드 발송
+    @RequestMapping(value="/confirmUser", method=RequestMethod.POST)
+    public boolean confirmUser(@RequestParam("email") String email){
+         return accountService.confirmUser(email);
+    }
+
+    //인증코드 일치 시 true리턴
+    @RequestMapping(value="/matchAuthenticationCode", method = RequestMethod.POST)
+    public boolean matchAuthenticationCode(@RequestParam("email") String email, @RequestParam("code") String code){
+        return accountService.matchAuthenticationCode(email, code);
+    }
+
+    //사용자가 입력한 password를 암호화해서 db에 저장
+    @RequestMapping(value="/changeUserPassword", method = RequestMethod.POST)
+    public boolean setUserPassword(@RequestParam("email") String email, @RequestParam("password") String password){
+        return accountService.changeUserPassword(email, password);
+    }
 }

@@ -37,6 +37,9 @@ public class Account {
     @Column(name="nick_name")
     private String nickName; //닉네임
 
+    @Column(name="authentication_code")
+    private String authenticationCode; //비밀번호 찾기 시 전송되는 인증코드
+
     @Enumerated(EnumType.STRING)
     private AuthProviderType providerType;
 
