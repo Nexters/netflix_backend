@@ -24,9 +24,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-    url : #
-    username: #root
-    password: #rootpassword
+    url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: rootpassword
     dbcp2:
       time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
   jpa:
@@ -49,9 +49,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #url: jdbc:mysql://localhost:3306/newtestdb2?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-    url : jdbc:mysql://netflixshare.cspjxuemdg0a.ap-northeast-rds.amazonaws.com:3306/netflixshare?serverTimezone=Asia/Seoul
-    username: netflixshare #root
-    password: netflixshare123 #rootpassword
+    url :
+    username:  #root
+    password:  #rootpassword
     dbcp2:
       time-between-eviction-runs-millis: 60000 #이건 뺄 수도 있을듯
   jpa:

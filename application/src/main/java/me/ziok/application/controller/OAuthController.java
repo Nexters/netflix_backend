@@ -41,7 +41,7 @@ public class OAuthController {
 
 
     @PostMapping("/signIn/facebook")
-    public ResponseEntity<?> authenticateFacebookAccount(@Valid @RequestBody SocialSignInRequest request) {
+    public ResponseEntity<?> authenticateFacebookAccount(SocialSignInRequest request) {
 
         Account account = socialService.translateAccessTokenToAccount(request.getToken());
         socialService.saveAccount(account);

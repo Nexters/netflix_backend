@@ -8,6 +8,7 @@ import me.ziok.application.security.JwtTokenProvider;
 import me.ziok.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -36,8 +38,8 @@ public class AuthController {
     AccountService accountService;
 
 
-    @PostMapping("/signIn")
-    public ResponseEntity<?> authenticateAccount(@Valid @RequestBody SignInRequest signInRequest) {
+    @PostMapping(value = "/signIn")
+    public ResponseEntity<?> authenticateAccount(SignInRequest signInRequest) {
 
 
         //todo: authService든, tokenService든 만들어서 거기서 처리
@@ -49,8 +51,6 @@ public class AuthController {
                 )
         );
 
-
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
@@ -61,7 +61,8 @@ public class AuthController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<?> registerAccount(@Valid @RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> registerAccount(SignUpRequest signUpRequest) {
+
 
         if (!accountService.isAbleToRegister(signUpRequest.getEmail(), signUpRequest.getNickName())) {
             throw new BadRequestException("Imposible to sign up with the email or nickname");
