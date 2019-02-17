@@ -57,7 +57,7 @@ public class OAuthController {
 
         String token = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(new AuthResponse(token));
+        return ResponseEntity.ok(new AuthResponse(token, account.getId()));
 
     }
 }

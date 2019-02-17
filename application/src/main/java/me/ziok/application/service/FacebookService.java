@@ -22,8 +22,13 @@ public class FacebookService implements SocialService {
 
         User userProfile = facebook.fetchObject("me",User.class,fields);
 
+        Account account = accountService.loadAccountByEmail(userProfile.getEmail());
+        if (account != null) {
+            return account;
+        }
+
         //todo: email 외 다른 정보들도 다 넣어주기
-        Account account = new Account(userProfile.getEmail(),userProfile.getId());
+        account = new Account(userProfile.getEmail(),userProfile.getId());
         account.setProviderType(AuthProviderType.FACEBOOK);
         account.setProviderId(userProfile.getId());
         account.setNickName(userProfile.getName());

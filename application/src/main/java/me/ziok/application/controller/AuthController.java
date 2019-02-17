@@ -35,9 +35,6 @@ public class AuthController {
     @Autowired
     AccountService accountService;
 
-    @Autowired
-    private MessageSource messages;
-
 
     @PostMapping("/signIn")
     public ResponseEntity<?> authenticateAccount(@Valid @RequestBody SignInRequest signInRequest) {
@@ -52,11 +49,15 @@ public class AuthController {
                 )
         );
 
+
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(new AuthResponse(jwt));
+        Account account = accountService.loadAccountByEmail(signInRequest.getEmail());
+
+        return ResponseEntity.ok(new AuthResponse(jwt, account.getId()));
     }
 
     @PostMapping("/signUp")
