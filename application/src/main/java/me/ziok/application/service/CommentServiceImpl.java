@@ -71,6 +71,11 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findByAccountEmailOrderByIdDesc(email);
     }
 
+    @Override
+    public List<Comment> loadByAccountIdOrderByIdDesc(Long accountId) {
+        return commentRepository.findByAccountIdOrderByIdDesc(accountId);
+    }
+
     //본인이 쓴 댓글 수
     public Long countByAccountEmail(String email){
         return commentRepository.countByAccountEmail(email);
