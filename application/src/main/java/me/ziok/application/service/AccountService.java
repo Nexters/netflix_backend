@@ -11,7 +11,7 @@ public interface AccountService {
     Account saveAccount(Account account);
     Account deleteAccount(Long id);
     //todo: update에 nickname 설정하는 것 넣기
-    Account updateAccount(Account account);
+    Account updateAccount(Long id,Account account);
     boolean isAbleToRegister(String email, String nickName);
 
 

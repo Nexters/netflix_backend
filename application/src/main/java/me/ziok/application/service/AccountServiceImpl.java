@@ -57,9 +57,28 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account updateAccount(Account account) {
+    public Account updateAccount(Long accountId,Account accountDetails) {
 
-        accountRepository.findById(account.getId()).orElseThrow(() -> new ResourceNotFoundException("Account", "id", account.getId()));
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
+        if (accountDetails.getEmail() != null) {
+            account.setEmail(accountDetails.getEmail());
+        }
+
+        if (accountDetails.getPassword() != null) {
+            account.setPassword(passwordEncoder.encode(accountDetails.getPassword()));
+        }
+
+        if (accountDetails.getNickName() != null) {
+            account.setNickName(accountDetails.getNickName());
+        }
+
+        if (accountDetails.getProviderType() != null) {
+            account.setProviderType(accountDetails.getProviderType());
+        }
+
+        if (accountDetails.getProviderId() != null) {
+            account.setProviderId(accountDetails.getProviderId());
+        }
 
         return accountRepository.save(account);
     }

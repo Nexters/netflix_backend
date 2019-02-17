@@ -30,9 +30,9 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public Account updateAccount(@RequestBody Account accountDetails) {
+    public Account updateAccount(@PathVariable Long id,@RequestBody Account accountDetails) {
 
-        return accountService.updateAccount(accountDetails);
+        return accountService.updateAccount(id, accountDetails);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
