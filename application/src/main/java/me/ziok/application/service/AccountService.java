@@ -13,6 +13,7 @@ public interface AccountService {
     //todo: update에 nickname 설정하는 것 넣기
     Account updateAccount(Long id,Account account);
     boolean isAbleToRegister(String email, String nickName);
+    boolean isEmailAvailable(String email);
     boolean confirmUser(String email);
     public boolean matchAuthenticationCode(String email, String code);
     public boolean changeUserPassword(String email, String password);
