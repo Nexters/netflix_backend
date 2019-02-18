@@ -7,10 +7,7 @@ import me.ziok.application.payload.*;
 import me.ziok.application.security.JwtTokenProvider;
 import me.ziok.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,9 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import javax.validation.Valid;
+
 import java.net.URI;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -36,6 +32,12 @@ public class AuthController {
 
     @Autowired
     AccountService accountService;
+
+    @PostMapping(value = "/check")
+    public ResponseEntity<?> checkEmailAvailable(CheckEmailRequest request) {
+
+        return ResponseEntity.ok(new CheckEmailResponse(accountService.isEmailAvailable(request.getEmail())));
+    }
 
 
     @PostMapping(value = "/signIn")

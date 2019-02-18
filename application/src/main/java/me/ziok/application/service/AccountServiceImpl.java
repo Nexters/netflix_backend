@@ -97,6 +97,11 @@ public class AccountServiceImpl implements AccountService {
         return true;
     }
 
+    @Override
+    public boolean isEmailAvailable(String email) {
+        return !accountRepository.existsByEmail(email);
+    }
+
 
     public boolean confirmUser(String email) {
         Account account = accountRepository.findByEmail(email).get();
