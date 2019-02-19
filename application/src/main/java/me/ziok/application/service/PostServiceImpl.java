@@ -40,16 +40,17 @@ public class PostServiceImpl implements PostService {
     @Autowired
     ImageService imageService;
 
-    public void savePost(Post post, String email, MultipartFile[] multipartFiles){
-        Account account = accountRepository.findByEmail(email).orElse(null);
+    public void savePost(Post post, Long accountId, MultipartFile[] multipartFiles){
+        Account account = accountRepository.findById(accountId).orElse(null);
         post.setAccount(account);
         post = postRepository.save(post);
         if(multipartFiles.length>0)
             imageService.fileUpload(multipartFiles, post.getId());
     }
 
-    public void updatePost(Post post, String email, String[] imageNames, MultipartFile[] multipartFiles){
-        Account account = accountRepository.findByEmail(email).orElse(null);
+    
+    public void updatePost(Post post, Long accountId, String[] imageNames, MultipartFile[] multipartFiles){
+        Account account = accountRepository.findById(accountId).orElse(null);
         post.setAccount(account);
 
         post = postRepository.findById(post.getId()).orElse(null);
@@ -63,13 +64,13 @@ public class PostServiceImpl implements PostService {
             imageService.fileUpload(multipartFiles, post.getId());
     }
 
-    public Post loadPost(Long id, String email){
-        Account account = accountRepository.findByEmail(email).orElse(null);
-        Post post = postRepository.findById(id).get();
+    public Post loadPost(Long postId, Long accountId ){
+        Account account = accountRepository.findById(accountId).orElse(null);
+        Post post = postRepository.findById(postId).get();
         //todo: hits를 설정하지 않아도
         post.setHits(post.getHits()+1); //조회 수 +1
         postRepository.save(post); //조회 수 +1 update
-        List<Comment> commentList = commentService.findByPostIdOrderByParentCommentIdAscIdAsc(account.getId(), post);
+        List<Comment> commentList = commentService.loadByPostIdOrderByParentCommentIdAscIdAsc(account.getId(), post);
         post.setComment(commentList);
         return post;
     }
@@ -88,11 +89,11 @@ public class PostServiceImpl implements PostService {
     }
 
 
-    public List<Post> findTop20ByOrderByIdDesc(){
+    public List<Post> loadTop20ByOrderByIdDesc(){
         return postRepository.findTop20ByOrderByIdDesc();
     }
 
-    public List<Post> findPostByLimit(Long id, PostSortType sortType){
+    public List<Post> loadPostByLimit(Long id, PostSortType sortType){
          if(sortType == PostSortType.lowFee){
             return postRepository.findPostByLimitOrderByFee(id);
         }else{
@@ -100,12 +101,12 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-    public List<Post> findPostByConditions(int number, int periodStart, int periodEnd){
+    public List<Post> loadPostByConditions(int number, int periodStart, int periodEnd){
         return postRepository.findPostByConditions(number, periodStart, periodEnd);
     }
 
 
-    public List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType){
+    public List<Post> loadPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType){
         if(sortType == PostSortType.lowFee){
             return postRepository.findPostByConditionsOrderByFee(id, number, periodStart, periodEnd);
         }else{

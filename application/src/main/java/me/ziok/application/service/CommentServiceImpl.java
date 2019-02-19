@@ -21,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     AccountRepository accountRepository;
 
-    public void saveComment(Comment comment, Long postId){
-         comment.setAccount(accountRepository.findByEmail(comment.getAccount().getEmail()).orElse(null));
+    public void saveComment(Comment comment, Long postId, Long accountId){
+         comment.setAccount(accountRepository.findById(accountId).orElse(null));
 
         Post post = new Post();
         post.setId(postId);
@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     //비밀댓글 시 댓글 작성자와 글 작성자만 볼 수 있도록. accountId : 조회하려는 accountId, postAccountId : post작성자accountId
-    public List<Comment> findByPostIdOrderByParentCommentIdAscIdAsc(Long accountId, Post post){
+    public List<Comment> loadByPostIdOrderByParentCommentIdAscIdAsc(Long accountId, Post post){
         List<Comment> commentList = commentRepository.findByPostIdOrderByParentCommentIdAscIdAsc(post.getId());
 
         List<BigInteger> accountWriteCommentId = commentRepository.findByAccountIdAndPostId(accountId, post.getId());
@@ -67,7 +67,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     //본인이 쓴 댓글 최신 순
-    public List<Comment> findByAccountEmailOrderByIdDesc(String email){
+    public List<Comment> loadByAccountEmailOrderByIdDesc(String email){
         return commentRepository.findByAccountEmailOrderByIdDesc(email);
     }
 
