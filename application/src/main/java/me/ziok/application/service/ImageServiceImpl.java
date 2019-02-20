@@ -50,13 +50,15 @@ public class ImageServiceImpl implements ImageService {
     public void imageUpdate(String[] imageNames, Long postId){
         List<Image> imageList = imageRepository.findByPostId(postId);
 
-        List<String> imageNamesList = Arrays.asList(imageNames);
+        if(imageNames!=null && imageNames.length>0) {
+            List<String> imageNamesList = Arrays.asList(imageNames);
 
-        for(Image i : imageList)
-            if(!imageNamesList.contains(i.getImgName())) {
-                imageRepository.deleteByImgName(i.getImgName());
-                s3Util.fileDelete("postImage"+i.getImgName());
-            }
+            for (Image i : imageList)
+                if (!imageNamesList.contains(i.getImgName())) {
+                    imageRepository.deleteByImgName(i.getImgName());
+                    s3Util.fileDelete("postImage" + i.getImgName());
+                }
+        }
     }
 
     //DELETE

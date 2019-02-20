@@ -12,28 +12,28 @@ import java.util.Map;
 
 public interface PostService {
 
-    void savePost(Post post, String email, MultipartFile[] multipartFiles);
+    void savePost(Post post, Long id, MultipartFile[] multipartFiles);
 
     //public Post updatePost(Post post, Long postId);
 
-    void updatePost(Post post, String email, String[] imageNames,MultipartFile[] multipartFiles);
+    void updatePost(Post post, Long id, String[] imageNames,MultipartFile[] multipartFiles);
 
-    Post loadPost(Long id, String email);
+    Post loadPost(Long postId, Long accountId);
 
     List<Post> loadOpenPostsWithAccountId(Long accountId);
 
-    public List<Post> findTop20ByOrderByIdDesc();
+    public List<Post> loadTop20ByOrderByIdDesc();
 
     List<Post> loadClosedPostsWithAccountId(Long accountId);
 
     Post loadPostByComment(Comment comment);
 
 
-    List<Post> findPostByLimit(Long id, PostSortType sortType);
+    List<Post> loadPostByLimit(Long id, PostSortType sortType);
 
-    List<Post> findPostByConditions(int number, int periodStart, int periodEnd);
+    List<Post> loadPostByConditions(int number, int periodStart, int periodEnd);
 
-    List<Post> findPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType);
+    List<Post> loadPostByConditions(Long id, int number, int periodStart, int periodEnd, PostSortType sortType);
 
     void deleteById(Long id);
 

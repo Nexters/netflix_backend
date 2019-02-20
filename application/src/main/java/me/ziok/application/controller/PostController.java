@@ -33,44 +33,44 @@ public class PostController  {
 
     //post 생성
    @RequestMapping(method= RequestMethod.POST)
-    public void savePost(Post post, @RequestParam("email") String email, @RequestParam("files")MultipartFile[] multipartFiles){
-        postService.savePost(post, email, multipartFiles);
+    public void savePost(Post post, @RequestParam("accountId") Long accountId, @RequestParam("files")MultipartFile[] multipartFiles){
+        postService.savePost(post, accountId, multipartFiles);
     }
 
     //post 수정
     @RequestMapping(method= RequestMethod.PUT)
-    public void updatePost(Post post, String[] imageNames, @RequestParam("email") String email, @RequestParam("files") MultipartFile[] multipartFiles){
-        postService.updatePost(post, email, imageNames, multipartFiles);
+    public void updatePost(Post post, String[] imageNames, @RequestParam("accountId") Long accountId, @RequestParam("files") MultipartFile[] multipartFiles){
+        postService.updatePost(post, accountId, imageNames, multipartFiles);
     }
 
     //post 상세보기
     @RequestMapping(value="/{postId}", method=RequestMethod.GET)
-    public Post getPost(@PathVariable("postId") Long postId, @RequestParam("email") String email){
-        return postService.loadPost(postId, email);
+    public Post getPost(@PathVariable("postId") Long postId, @RequestParam("accountId") Long accountId){
+       return postService.loadPost(postId, accountId);
     }
 
     //postList - 게시판 첫 요청 시(lastPostId x, 필터 x, 글 정렬x)
     @RequestMapping(method=RequestMethod.GET, value="/list")
     public List<Post> getPostList() {
-        return postService.findTop20ByOrderByIdDesc();
+        return postService.loadTop20ByOrderByIdDesc();
     }
 
     //postList - 마지막 글 번호를 파라미터로 받고 그 다음 글 5개 리턴(lastPostId o, 필터 x, 글 정렬o)
     @RequestMapping(method=RequestMethod.GET, value="/list/{lastPostId}")
     public List<Post> getPostList(@PathVariable("lastPostId")Long lastPostId, PostSortType sortType) {
-        return postService.findPostByLimit(lastPostId,sortType);
+        return postService.loadPostByLimit(lastPostId,sortType);
     }
 
     //postList - 첫 필터링 후 조회 시 조건에 해당하는 글 리턴 (lastPostId o, 필터 d, 글 정렬x)
     @RequestMapping(method=RequestMethod.GET, value="/list/conditions")
     public List<Post> getPostListByConditions(int number, int periodStart, int periodEnd) {
-        return postService.findPostByConditions(number, periodStart, periodEnd);
+        return postService.loadPostByConditions(number, periodStart, periodEnd);
     }
 
     //postList - 마지막 글 번호를 파라미터로 받고 조건에 해당하는 그 다음 글 5개 리턴(lastPostId o, 필터 o, 글 정렬o)
     @RequestMapping(method=RequestMethod.GET, value="/list/{lastPostId}/conditions")
     public List<Post> getPostListByConditions(@PathVariable("lastPostId") Long lastPostId, int number, int periodStart, int periodEnd, PostSortType sortType) {
-        return postService.findPostByConditions(lastPostId ,number, periodStart, periodEnd, sortType);
+        return postService.loadPostByConditions(lastPostId ,number, periodStart, periodEnd, sortType);
     }
 
     //post 삭제

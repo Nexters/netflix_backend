@@ -9,8 +9,8 @@ import java.util.Properties;
 
 public class MailSendUtil {
 
-    private String user ="#";
-    private String password = "#";
+    private String user ="";
+    private String password = "";
 
     @Autowired
     JavaMailSenderImpl mailSender;//보내는 계정의 정보가 들어가야함.
