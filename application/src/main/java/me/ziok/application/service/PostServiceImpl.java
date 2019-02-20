@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
         Account account = accountRepository.findById(accountId).orElse(null);
         post.setAccount(account);
         post = postRepository.save(post);
-        if(multipartFiles.length>0)
+        if(multipartFiles!=null && multipartFiles.length>0)
             imageService.fileUpload(multipartFiles, post.getId());
     }
 
@@ -52,15 +52,9 @@ public class PostServiceImpl implements PostService {
     public void updatePost(Post post, Long accountId, String[] imageNames, MultipartFile[] multipartFiles){
         Account account = accountRepository.findById(accountId).orElse(null);
         post.setAccount(account);
-
-        post = postRepository.findById(post.getId()).orElse(null);
-
-        //open과 membership은 무조건 받아야함.
-
-
         post = postRepository.save(post);
         imageService.imageUpdate(imageNames, post.getId());
-        if(multipartFiles.length>0)
+        if(multipartFiles!=null && multipartFiles.length>0)
             imageService.fileUpload(multipartFiles, post.getId());
     }
 
