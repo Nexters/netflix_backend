@@ -33,14 +33,14 @@ public class PostController  {
 
     //post 생성
    @RequestMapping(method= RequestMethod.POST)
-    public void savePost(Post post, @RequestParam("accountId") Long accountId, @RequestParam("files")MultipartFile[] multipartFiles){
+    public void savePost(Post post, @RequestParam("accountId") Long accountId, @RequestParam(value="files", required=false)MultipartFile[] multipartFiles){
         postService.savePost(post, accountId, multipartFiles);
     }
 
     //post 수정
     @RequestMapping(method= RequestMethod.PUT)
-    public void updatePost(Post post, String[] imageNames, @RequestParam("accountId") Long accountId, @RequestParam("files") MultipartFile[] multipartFiles){
-        postService.updatePost(post, accountId, imageNames, multipartFiles);
+    public void updatePost(Post post, String[] imageNames, @RequestParam("accountId") Long accountId, @RequestParam(value="files", required=false) MultipartFile[] multipartFiles){
+       postService.updatePost(post, accountId, imageNames, multipartFiles);
     }
 
     //post 상세보기
